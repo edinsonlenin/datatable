@@ -1,0 +1,23 @@
+li {
+    margin: 0 !important;
+    padding:  0 !important;
+}
+.col-md-3, .col-md-6 {
+    border: 1px solid black;
+}
+.cabecera {
+    overflow: hidden !important;
+    text-align: center;
+}
+
+select {
+    width: 300px; overflow: hidden;
+}
+
+.select2-dropdown.select2-dropdown--below {
+    overflow: hidden
+}
+
+.select2-search__field {
+    display: none
+}

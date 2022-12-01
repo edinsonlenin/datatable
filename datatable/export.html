@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/scroller/2.0.7/css/scroller.dataTables.min.css">
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/scroller/2.0.7/js/dataTables.scroller.min.js"></script>
+    <script src="BaseDataTable.js"></script>
+    <script src="script.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable({
+                data: personas,
+                columns: [
+                    { data: "id", title: 'Id' },
+                    { data: "nombre", title: 'Nombre' },
+                    { data: "apellido", title: 'Apellido' },
+                    { data: "edad", title: 'Edad' },
+                    { data: "sexo", title: 'Sexo' },
+                    { data: "sueldo", title: 'Sueldo' },
+                    { data: "hobbies", title: 'Hobbbies' },
+                ],
+            });
+
+            let datatablePersonas = new BaseDataTable('#personas', {
+                data: personas,
+                columns: [
+                    { data: "id", title: 'Id' },
+                    { data: "nombre", title: 'Nombre' },
+                    { data: "apellido", title: 'Apellido' },
+                    { data: "edad", title: 'Edad' },
+                    { data: "sexo", title: 'Sexo' },
+                    { data: "sueldo", title: 'Sueldo' },
+                    { data: "hobbies", title: 'Hobbbies' },
+                ],
+                scrollY: "100px",
+                moveTo: "destino",
+            })
+            datatablePersonas.init();
+
+
+        });
+    </script>
+</head>
+
+<body>
+    <table id="personas" class="display" width="100%" height="60%"></table>
+    <table id="example" class="display" width="100%" height="60%"></table>
+</body>
+
+</html>

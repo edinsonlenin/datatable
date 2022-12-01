@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/scroller/2.0.7/css/scroller.dataTables.min.css">
+
+    <style>
+        .bk_yellow {
+            background-color: yellow !important;
+        }
+    </style>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/scroller/2.0.7/js/dataTables.scroller.min.js"></script>
+    <script src="BaseDataTable.js"></script>
+    <script src="script.js"></script>
+
+</head>
+<body>
+    <input id="anio" type="integer" />
+    <input type="text" id="texto" sytle="text-transform:uppercase"/>
+    <div style="height: 500px;border: 1px solid red;">
+    <table id="origen" class="display" width="100%">
+        <thead>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Cant Hijos</th>
+        </thead>
+        <tfoot>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+    <br/>
+    <table id="destino" class="display" width="100%">
+        <thead>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Cant Hijos</th>
+        </thead>
+        <tfoot>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tfoot>
+    </table>
+</body>
+<script>
+    $("#anio")
+    .blur(function() {
+        let anio = $("#anio").val().replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ",");
+        $("#anio").val(anio);
+
+    });
+    
+</script>
+</html>
