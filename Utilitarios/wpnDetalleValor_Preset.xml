@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<PresetInfo PresetName="wpnDetalleValor" PresetDescription="Ingreso Orden Extrabursatil" PresetType="Appearance" />-->
+<igmisc:WebPanel>
+  <PanelStyle BorderWidth="2px" BorderColor="#7A99AE" BorderStyle="Solid">
+    <BorderDetails WidthLeft="2px" StyleBottom="Solid" WidthTop="2px" WidthRight="2px" StyleTop="Solid" StyleRight="Solid" WidthBottom="2px" StyleLeft="Solid" />
+  </PanelStyle>
+</igmisc:WebPanel>

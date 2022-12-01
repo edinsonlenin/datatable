@@ -1,0 +1,435 @@
+.TablasTitulos  {FONT: bold 8pt Arial, Helvetica;COLOR: darkslateblue;BACKGROUND-COLOR: #ffffff; text-align :right }
+.TablasTitulosRojo  {FONT: bold 8pt Arial, Helvetica;COLOR: #ff0000;BACKGROUND-COLOR: #ffffff; text-align :right }
+.TablasItemBlancoMixto { font: 12px Arial, Verdana, Helvetica; color: #003366; background-color: #FFFFFF }
+.TablasTitulosIzquierda  {FONT: bold 8pt Arial, Helvetica;COLOR: darkslateblue;BACKGROUND-COLOR: #ffffff; text-align :left }
+.TablasTitulosIzquierdaPeq  {FONT: bold 7pt Arial, Helvetica;COLOR: darkslateblue;BACKGROUND-COLOR: #ffffff; text-align :left }
+.TablasTitulosIzquierdaNoBolder  {FONT: 7pt Arial, Helvetica;COLOR: darkslateblue;BACKGROUND-COLOR: #ffffff; text-align :left }
+.TablasTitulosIzquierdaSinFondo  {  font: bolder 12px Arial, Verdana, Helvetica; color: #003366; text-align :left }
+.TablasTitulosCentrado {FONT: bold 8pt Arial, Helvetica;COLOR: darkslateblue;BACKGROUND-COLOR: #ffffff; text-align : center}
+.TablasTitulosVentanilla{ font: bolder 12px Arial, Verdana, Helvetica; color: #C03366; background-color: #FFFFFF; text-align :right }
+.TablasTitulos2 {  font: bolder 12px Arial, Verdana, Helvetica; color: #003366; background-color: #FFFFFF; text-align :left }
+.Siglas {  font:  9px Arial, Verdana, Helvetica; color: #003366; background-color: #FFFFFF; text-align :right }
+.TablasItemBlanco { font: 9px Arial, Verdana, Helvetica; color: #000000; background-color: #FFFFFF }
+.TablasItemAzul
+{
+	font: bold 10pt Arial,  Helvetica;
+	color: #FFFFFF;
+	background-color: #6791C9;
+}
+.TablasItemAzulPeq
+{
+	font: bold 8.5pt Arial,  Helvetica;
+	color: #FFFFFF;
+	background-color: #6791C9;
+}
+.BotonAzul
+{
+	font: bold 8pt Arial,  Helvetica;
+	color: #FFFFFF;
+	background-color: #6791C9;
+}
+
+	.BotonAzul:disabled,
+	.BotonAzul[disabled] {
+		color: lightgray;
+	}
+
+.TablasItem {
+	font: 12px Arial, Verdana, Helvetica;
+	color: #333333;
+	background-color: #FFFFFF
+}
+.TitularesGrandes {  font: bolder 14px Arial, Verdana, Helvetica; text-transform: uppercase; color: #666666; background-color: #FFFFFF}
+.TextoPeque {  font: 9px Arial, Verdana, Helvetica; color: #000000}
+.NAVTablasTitulos { font: bolder 12px Arial, Verdana, Helvetica; color: #003366; background-color: #FFFFFF ; cursor: hand}
+.NAVTablasItem { font: 10px Arial, Verdana, Helvetica; color: #333333; background-color: #FFFFFF ; cursor: hand}
+.NAVTablasTituloBlancos { font: bolder 12px Arial, Verdana, Helvetica; color: #FFFFFF; cursor: hand }
+.NAVTablasItemNoBckgr { font: 12px Arial, Verdana, Helvetica; color: #333333; cursor: hand }
+.NAVTablasTitulosNoBckgr { font: bolder 12px Arial, Verdana, Helvetica; color: #003366; cursor: hand }
+.TitularesPaginas {  font: bolder 11px Arial, Verdana, Helvetica; color: #000000; text-transform :uppercase}
+.TitularesPaginas2 {  font: bolder 11px Arial, Verdana, Helvetica; color: #000000; text-transform :uppercase; text-align :right}
+.TituloGrandeCodigos {  font: bolder 14px Arial, Verdana, Helvetica; color: #000000; text-transform :uppercase}
+.PR2TablasTitulos { font: bolder 12px Arial, Verdana, Helvetica; color: #003366; background-color: #FFFFFF ; background-image: url(imagenes/bckgr-tonalidad-clara-2.gif)}
+.ListadoRow1 {  font: 12px Arial, Verdana, Helvetica; color: #333333; background-color: #FFFFCC}
+.ListadoRowSeleccionado { font: 12px Arial, Verdana, Helvetica; color: #333333; background-color: #CCCCCC}
+.EfectoManito {  cursor: hand}
+.TablasTitulosNegros { font: bolder 12px Arial, Verdana, Helvetica; color: #000000; background-color: #FFFFFF }
+.TablasTitulosNegros1 { font: bolder 13px Arial, Verdana, Helvetica; color: #000000; background-color: #FFFFFF }
+.TablasItemFondoAzul { font: bolder 12px Arial, Verdana, Helvetica; color: #FFFFFF; background-color: #7699AD}
+.TablasItemFondoGris { font: bolder 12px Arial, Verdana, Helvetica; color: #000000; background-color: #D8D8D8}
+.TablasItemFondoGrisOscuro { font: bolder 12px Arial, Verdana, Helvetica; color: #FFFFFF; background-color: #999999}
+.TablasTitulosFondoGris { font: bolder 12px Arial, Verdana, Helvetica; color: #003366; background-image: url(imagenes/bckgr-titulos-tablas.gif)}
+.TablasItemFondoAmarillo { font: bolder 12px Arial, Verdana, Helvetica; color: #003366; background-color: #FFFFCC}
+.TextoMedianoBlanco { font: 12px Arial, Verdana, Helvetica; color: #FFFFFF}
+.texto-rojo-mediano{font: bolder 12px Arial, Verdana, Helvetica;color: #ff0000; text-align:left }
+.texto-rojo-peque-mayus{font: bolder 10px Arial, Verdana, Helvetica;color: #ff0000; text-align:left; text-transform:uppercase }
+.texto-rojo-mediano-mayus{font: bolder 12px Arial, Verdana, Helvetica;color: #ff0000; text-align:left; text-transform :uppercase }
+.texto-negro-peque{	font: 10px Arial, Verdana, Helvetica;color: #000000; text-align:right }
+.texto-negro-peque2{font: 10px Arial, Verdana, Helvetica;color: #000000; text-align:left }
+.texto-negro-peque2-bgcolor{font: 10px Arial, Verdana, Helvetica;color: #000000; text-align:left; background-color: #FEFEE9}
+.texto-negro-peque-FondoGris{	font: 10px Arial, Verdana, Helvetica;color: #000000 ; background-image: url(imagenes/bckgr-titulos-tablas.gif); text-align:right }
+.texto-negro-peque-FondoGris2{font: 10px Arial,  Helvetica;color: #000000;background-image: url(imagenes/bckgr-titulos-tablas.gif);	text-align: left;}
+.texto-negro-peque-mayus{	font: 10px Arial, Verdana, Helvetica;color: #000000; text-transform :uppercase }
+.texto-negro-peque-mayus2{	font: 10px Arial, Verdana, Helvetica;color: #000000; text-transform :uppercase ;text-align :right }
+.texto-negro-peque-mayus-rojo{	font: 10px Arial, Verdana, Helvetica;color: #000000; text-transform :uppercase; border:#ff0000; }
+.texto-negro-peque-mayus1{	font: 12px Arial, Verdana, Helvetica;color: #000000; text-transform :uppercase }
+.texto-blanco-peque-mayusc{	font: 10px Arial, Verdana, Helvetica;color: #FFFFFF; text-transform :uppercase }
+.texto-activo{font: 10px Arial, Verdana, Helvetica;color: #000000 ; background-color: #FFFFCC; text-align :right }
+.NumerosFP{font: 10px Arial, Verdana, Helvetica;color: #000000 ;text-align :right }
+.TextoFP{font: 10px Arial, Verdana, Helvetica;color: #000000 ;text-align :left }
+.TablasTitulos2{	font : bolder 12px Arial, Verdana, Helvetica;	background-color : #ffffff;	text-align : left;	color: #003366}
+.Links{	font: 12px Arial, Verdana, Helvetica;color: #0000C0;text-align: left; text-decoration :underline  }
+.Alerta{
+	font : bolder 12px Arial, Verdana, Helvetica;
+	background-color : #ffffff;
+	text-align : left;
+	color: Red;
+}
+.AlertaGreen{
+	font : bolder 12px Arial, Verdana, Helvetica;
+	background-color : #ffffff;
+	text-align : left;
+	color:Green;
+}
+.texto-rojo-peque{	font: 10px Arial, Verdana, Helvetica;color: #ff0000; text-align:right }
+.texto-rojo-peque-izquierda{	font: 10px Arial, Verdana, Helvetica;color: #ff0000; text-align:left }
+.tab-Blanco{font: 10px Verdana;color: #FFFFFF}
+.tab-Negro{font: 10px Verdana;color: #000000}
+.ListadoRow1_2 {  font: 12px Arial, Verdana, Helvetica; color: #333333; background-color: #F7F7F7}
+.TablasItemFondoAzul2 { font: bolder 12px Arial, Verdana, Helvetica; color: #FFFFFF; background-color: #7A99AE}
+.TextoInicio {  font: bolder 12px Arial, Verdana, Helvetica; color: #003366; text-align :right }
+.TextoInicio2 {  font: bolder 12px Arial, Verdana, Helvetica; color: #003366; text-align :left }
+.TabTextoAzul { font: 8px Verdana; color: #FFFFFF}
+.TabTextoGrisOscuro { font: 8px Verdana; color: #000000}
+.TabTextoGrisClaro { font: 8px Verdana; color: #000000}
+.texto-blanco-manito {  font: bolder 12px Arial, Verdana, Helvetica; color: #FFFFFF; text-align :right; cursor: hand }
+.texto-documentos{	font: 12px Arial, Arial;color: #000000}
+.textonegro-documentos{	font: bolder 12px Arial, Arial;color: #000000}
+.valores-documentos{	font: 12px Arial;color: #000000; text-align :right}
+.texto-negro-manito {  font: bolder 12px Arial, Verdana, Helvetica; color: #000000; text-align :center; cursor: hand }
+.texto-negro{  font: bolder 12px Arial, Verdana, Helvetica; color: #000000; text-align :center;  }
+.TablasTitulosNegrosCentrado{ font: bolder 12px Arial, Verdana, Helvetica; color: #000000; text-align :center; background-color: #FFFFFF }
+.texto-gris
+{
+	font: 12px Arial, Verdana, Helvetica;
+	color: gray;
+	text-align: right;
+}
+.texto-gris-peque
+{
+	font: 10px Arial, Verdana, Helvetica;
+	color: gray;
+	text-align: right;
+}
+.TablasTitulosCompra
+{
+	font-weight: bold;
+	font-size: small;
+	color: #ffffff;
+	font-family: Arial;
+	background-color: #339933;
+}
+.TablasTitulosVenta
+{
+	font-weight: bold;
+	font-size: small;
+	color: #ffffff;
+	font-family: Arial;
+	background-color: #cc0000;
+}
+.TablasTitulosCompraFondo
+{
+	background-color: #339933;
+}
+.TablasTitulosVentaFondo
+{
+	background-color: #ff3300;
+}
+.FilaResaltada
+{
+	BACKGROUND-COLOR:#d7ebda;	
+}
+.EtiquetaVenta {font: bolder 12px Arial;color: #ff3300 }
+.EtiquetaCompra {font: bolder 12px Arial;color: #339933 }
+.ColumnaNormal
+{
+	Background-Image: none;
+	
+}
+
+.ColumnaCorte
+{
+	Background-Image: none !important;
+	background-color:#DC143C !important;
+	font: bolder 11px Arial !important;
+	color: #ffffff  !important; 
+	
+}
+.ColumnaFull
+{
+	Background-Image: none !important;
+	background-color:#FFA500 !important;
+}
+.ItemMenuContextual
+{
+	font: 12px Verdana, Arial; 	
+	background-color:#F0F8FF;
+	color: #336699; 
+	text-align :left;	
+}
+.CeldaOrdenesPorCargar
+{
+	border-right: #ff0033 1px solid;
+	border-top: #ff0033 1px solid;
+	font-weight: bold;
+	font-size: 13pt;
+	vertical-align: baseline;
+	border-left: #ff0033 1px solid;
+	color: #3366ff;
+	border-bottom: #ff0033 1px solid;
+	font-family: Arial;
+	text-align: center;
+}
+.CeldaUltimaHoraCarga
+{
+	font-weight: bold;
+	font-size: 10pt;
+	color: #0033ff;
+	font-family: Arial;
+}
+.CeldaMensajeAccion
+{
+	font-size: 9pt;
+	color: #ff0033;
+	font-family: Arial;
+	text-align: center;
+}
+.MensajeNota
+{
+	font-size: 8pt;
+	color: #ff0033;
+	font-family: Arial;
+}
+.MensajeNotaPiePagina
+{
+	font-size: 8pt;
+	color: #336699; 
+	font-family: Arial;
+}
+.TextoResumenTrader
+{
+	FONT:  8pt Arial, Helvetica;BACKGROUND-COLOR: #ffffff; text-align :right 
+}
+.BordeTablaCompra
+{
+	BORDER-RIGHT: #339999 1px solid; 
+	BORDER-TOP: #339999 1px solid; 
+	BORDER-LEFT: #339999 1px solid; 
+	BORDER-BOTTOM: #339999 1px solid;
+
+}
+.BordeTablaVenta
+{
+	BORDER-RIGHT: #cc0000 1px solid; 
+	BORDER-TOP: #cc0000 1px solid; 
+	BORDER-LEFT: #cc0000 1px solid; 
+	BORDER-BOTTOM: #cc0000 1px solid;
+}
+.BordeTablaBolsa
+{
+	BORDER-RIGHT: #6791C9 1px solid; 
+	BORDER-TOP: #6791C9 1px solid; 
+	BORDER-LEFT: #6791C9 1px solid; 
+	BORDER-BOTTOM: #6791C9 1px solid;
+
+}
+.BordeCeldaBolsa
+{
+	BORDER-RIGHT: #6791C9 1px solid; 
+	BORDER-TOP: #6791C9 1px solid; 
+	BORDER-LEFT: #6791C9 1px solid; 
+	BORDER-BOTTOM: #6791C9 1px solid;
+
+}
+.TablaResumenCompra
+{
+	BACKGROUND-COLOR: #339999;
+}
+.BotonRefrescarTrader
+{
+	font: bold 8pt Arial,  Helvetica;
+	color: #FFFFFF;
+	background-color: #FFA500;
+}
+.BotonNaranja
+{
+	font: bold 8pt Arial,  Helvetica;
+	color: #FFFFFF;
+	background-color: #FFA500;
+}
+
+.CeldaResumenL
+{
+	border-right: activeborder 1px solid;
+	border-top: activeborder 1px solid;
+	font-size: 8pt;
+	border-left: activeborder 1px solid;
+	color: darkslateblue;
+	border-bottom: activeborder 1px solid;
+	font-family: Arial;
+}
+
+.CeldaResumenR
+{
+	border-right: activeborder 1px solid;
+	border-top: activeborder 1px solid;
+	font-size: 8pt;
+	border-left: activeborder 1px solid;
+	color: darkslateblue;
+	border-bottom: activeborder 1px solid;
+	font-family: Arial;
+	text-align: right;
+}
+
+.CeldaResumenCantidad
+{
+	border-right: activeborder 1px solid;
+	border-top: activeborder 1px solid;
+	font-size: 8pt;
+	border-left: activeborder 1px solid;
+	color: black;
+	border-bottom: activeborder 1px solid;
+	font-family: Arial;
+	text-align: right;
+}
+.TablasItemCompra
+{
+	font: bold 8pt Arial, Helvetica;
+	color: black;
+	background-color: silver;
+}
+.TablasItemVenta
+{
+	font: bold 8pt Arial, Helvetica;
+	color: black;
+	background-color: silver;
+}
+.TablasItemCompra1
+{
+	font: bold 8pt Arial, Helvetica;
+	color: white;
+	height: 18px;
+	background-color: #669966;
+}
+.TablasItemVenta1
+{
+	font: bold 8pt Arial, Helvetica;
+	color: white;
+	background-color: crimson;
+}
+
+.TablaResumenVenta
+{
+	BACKGROUND-COLOR: #ff3300; 
+}
+
+.BotonCompra
+{
+	font: bold 8pt Arial, Helvetica;
+	width: 90px;
+	color: #ffffff;
+	background-color: #339933;
+}
+.BotonVenta
+{
+	font: bold 8pt Arial,  Helvetica;
+	width: 90px;
+	color: #FFFFFF;
+	background-color: #cc0000;
+}
+.BotonPrepago
+{
+	font: bold 8pt Arial,  Helvetica;
+	color: #FFFFFF;
+	background-color: #FFA500;
+}
+
+.barraTituloPopUpDetalleOrden { font: bolder 13px Verdana, Arial, Helvetica; color: #ffffff; background-color: #000000 ; background-image: url(imagenes/igpnl_office2k3_drk.png)}
+.barraTituloRojo { font: bolder 13px Verdana, Arial, Helvetica; color: #ffffff; background-color: #cc0000 ;}
+
+.RVOrdenAnulada { background-color: Silver; }
+.RVUsuario      { text-align:center;font-weight: bolder; color:Navy  }
+.RVPosesion     { text-align:center;font-weight: bolder; color:Navy  }
+.RVNumeroOrden  { text-align:center;font-weight: bolder; color:Navy  }
+.RVNemonicoOrden{ text-align:center;font-weight: bolder; color:Maroon}
+.RVEstadoOrden  { text-align:center;font-weight: bolder; color:Maroon}
+
+
+.OPRtextoValorPopUpNormal  {FONT: 8pt Arial, Helvetica;COLOR: #000000 ;BACKGROUND-COLOR: #ffffff;}
+.OPRtextoValorPopUpBold  {FONT: bold 8pt Arial, Helvetica;COLOR: #000000 ;BACKGROUND-COLOR: #ffffff;}
+.OPRtextoValorPopUpBoldRojo  {FONT: bold 8pt Arial, Helvetica;COLOR: #ff3300 ;BACKGROUND-COLOR: #ffffff;}
+.OPRtextoValorPopUpBoldVerde  {FONT: bold 8pt Arial, Helvetica;COLOR: #3CB371 ;BACKGROUND-COLOR: #ffffff;}
+.OPRTablaPopUpDetalleOrden
+{
+
+	border-color: Navy;
+	border-style: solid;	    
+	border-width: 1px;
+	
+}
+.OPRCabeceraTablasPopUpNormal  
+{
+	font: bold 8pt Arial, Helvetica;
+	color: #ffffff ;
+	background-color: #2C59B4;
+	text-align: center;
+	vertical-align :middle;
+}
+.OPRCuerpoTablasPopUpNormalGris1 
+{
+	font: 7.5pt Arial, Helvetica;
+	color: #000000 ;
+	background-color: #ffffff;		
+	vertical-align :middle;
+}
+.OPRCuerpoTablasPopUpNormalGris2  
+{
+	font: 7.5pt Arial, Helvetica;
+	color: #000000 ;
+	background-color: #ffffff;	
+	vertical-align :middle;
+}
+hr
+{COLOR: #6791C9;
+}	
+.TablasItemCompraRF
+{
+	font: bold 8pt Arial, Helvetica;
+	color: DarkBlue;
+	background-color: LightBlue;
+}
+.TablasItemAzulRF
+{
+	font: bold 8pt Arial,  Helvetica;
+	color: #FFFFFF;
+	background-color: #6791C9;
+}
+
+/*CLASE PARA OCULTAR Y MOSTRAR 19/08/2022*/
+.hidden {
+	opacity: 0;
+	width: 0;
+	height: 0;
+	transition: opacity 0.3s ease-out 0.001s, width 0 ease-out 0.3s, height 0.3s ease-out 0.3s;
+}
+
+.visible {
+	opacity: 1;
+	transition: opacity 0.3s ease-out 0.1s, width 0.001s ease-out 0.001s, height 0.001s ease-out 0.001s;
+}
+.contenedor_height {
+	height:176px;
+}
+.alineacion_top {
+vertical-align:top;
+}

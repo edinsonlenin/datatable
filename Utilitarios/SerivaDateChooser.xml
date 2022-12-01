@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--<PresetInfo PresetName="Seriva.DateChooser" PresetDescription="Preset para Calendarios de Seriva" PresetType="All" />-->
+<igsch:WebDateChooser CssClass="texto-negro-peque" NullDateLabel=" ">
+  <CalendarLayout TitleFormat="Month" ShowYearDropDown="False" PrevMonthImageUrl="ig_tab_blueY2.gif" ShowMonthDropDown="False" NextMonthImageUrl="ig_cal_blueN0.gif" ShowFooter="False">
+    <DayStyle BackColor="#7AA7E0" />
+    <FooterStyle ForeColor="#505080" BackgroundImage="ig_tab_blueY2.gif">
+      <BorderDetails ColorTop="LightSteelBlue" WidthTop="1px" StyleTop="Solid" />
+    </FooterStyle>
+    <SelectedDayStyle BackColor="SteelBlue" />
+    <OtherMonthDayStyle ForeColor="SlateGray" />
+    <NextPrevStyle BackgroundImage="ig_tab_blueY2.gif" />
+    <CalendarStyle BorderWidth="1px" Font-Size="9pt" Font-Names="Verdana" BorderColor="SteelBlue" BorderStyle="Solid" BackColor="#E0EEFF" />
+    <TodayDayStyle BackColor="#97B0F0" />
+    <DayHeaderStyle Font-Bold="True" ForeColor="#606090" BackColor="#7AA7E0">
+      <BorderDetails StyleBottom="Solid" ColorBottom="LightSteelBlue" WidthBottom="1px" />
+    </DayHeaderStyle>
+    <TitleStyle Font-Bold="True" ForeColor="#505080" BackgroundImage="ig_tab_blueY2.gif" BackColor="#CCDDFF" />
+  </CalendarLayout>
+  <DropButton>
+    <HoverStyle />
+    <Style />
+  </DropButton>
+  <ExpandEffects ShadowColor="LightGray" />
+</igsch:WebDateChooser>

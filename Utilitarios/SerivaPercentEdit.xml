@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--<PresetInfo PresetName="SerivaPercentEdit" PresetDescription="Preset estándar para PercentEdit de Seriva" PresetType="All" />-->
+<igtxt:WebPercentEdit BorderStyle="Solid" BorderWidth="1px" UseBrowserDefaults="False" BorderColor="#7F9DB9" CssClass="texto-negro-peque" MinDecimalPlaces="Two" CellSpacing="1" DataMode="Decimal">
+  <ButtonsAppearance CustomButtonDefaultTriangleImages="Arrow">
+    <ButtonPressedStyle BackColor="#83A6F4" />
+    <ButtonStyle Width="13px" BorderWidth="1px" BorderColor="#ABC1F4" BorderStyle="Solid" ForeColor="#506080" BackColor="#C5D5FC" />
+    <ButtonHoverStyle BackColor="#DCEDFD" />
+    <ButtonDisabledStyle BackColor="#E1E1DD" BorderColor="#D7D7D7" ForeColor="#BEBEBE" />
+  </ButtonsAppearance>
+  <SpinButtons DefaultTriangleImages="ArrowSmall" Display="OnRight" />
+</igtxt:WebPercentEdit>

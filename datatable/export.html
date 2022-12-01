@@ -6,33 +6,94 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/scroller/2.0.7/css/scroller.dataTables.min.css">
+    <LINK href="../Utilitarios/seriva-stiles.css" type="text/css" rel="stylesheet">
+    <SCRIPT src="../Utilitarios/JScript/jsUtil.js" type="text/javascript"></SCRIPT>
+    <link href="../Utilitarios/cliente.css" type="text/css" rel="stylesheet" />
+    <link href="../src/css/custom.datatable.css" rel="stylesheet" />
 
+    <script type="text/javascript" src="../Scripts/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="../src/assets/handlebars/js/handlebars.min.js"></script>
+    <script type="text/javascript" src="../src/assets/dataTable/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="../src/assets/dataTable/resize.datatable.js"></script>
+    <script type="text/javascript" src="../src/assets/dataTable/dataTables.select.min.js"></script>
+    <script type="text/javascript" src="../src/js/CustomDataTable.js"></script>
+    <script type="text/javascript" src="../src/js/styleUwg.js"></script>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/scroller/2.0.7/js/dataTables.scroller.min.js"></script>
-    <script src="BaseDataTable.js"></script>
+    <!--referencias para exportación a excel -->
+    <link href="../src/assets/dataTable/buttons.dataTables.min.css" rel="stylesheet" />
+    <style type="text/css">
+        table tbody tr td[colspan="8"]{
+            padding-left: 33px!important;
+            padding-top: 0rem !important;
+            padding-right: 0rem !important;
+        }
+        table tr td[colspan="7"]{
+            padding-left: 2.1rem !important;
+            padding-top: 0rem !important;
+            padding-right: 0rem !important;
+        }
+        table.dataTable {
+            margin: 0 !important;
+        }
+    </style>
+
+    <script type="text/javascript" src="../src/assets/dataTable/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="../src/assets/dataTable/jszip.min.js"></script>
+    <script type="text/javascript" src="../src/assets/dataTable/buttons.html5.min.js"></script>
+
+    <link href="../src/assets/Bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <script src="script.js"></script>
     <script>
         $(document).ready(function () {
             let columnsPersonas = [
-                    { data: "id", title: 'Id' },
-                    { data: "nombre", title: 'Nombre' },
-                    { data: "apellido", title: 'Apellido' },
-                    { data: "edad", title: 'Edad' },
-                    { data: "sexo", title: 'Sexo' },
-                    { data: "sueldo", title: 'Sueldo' },
-                    { data: "hobbies", title: 'Hobbbies' },
-                ];
+                { class: 'dt-control', width:'33px' },
+                { data: "id", title: 'Id' },
+                { data: "nombre", title: 'Nombre' },
+                { data: "apellido", title: 'Apellido' },
+                { data: "edad", title: 'Edad' },
+                { data: "sexo", title: 'Sexo' },
+                { data: "sueldo", title: 'Sueldo' },
+                { data: "hobbies", title: 'Hobbbies' },
+            ];
 
-            let datatablePersonas = new BaseDataTable('#personas', {
+            let columnsPersonasDetalle = [
+                { data: "actividad", title: 'Actividad' },
+                { data: "duracion", title: 'Duracion' },
+                { data: "esfuerzo", title: 'Esfuerzo' },
+            ];
+
+            let tablePersonas = new BaseDataTable('#tablePersonas', {
                 data: personas,
-                columns: columnsPersonas
+                columns: columnsPersonas,
+                select: {
+                    style: 'os',
+                    selector: 'td:not(.dt-control)',
+                    toggleable: false
+                },
+                columnDefs: [{
+                    "defaultContent": "",
+                    "targets": "_all"
+                }],
+                rowId: 'id',
+                renderRowExpanded: async (rowData) => {
+                    var source = document.getElementById("nested-table-template-01").innerHTML;
+                    var template = Handlebars.compile(source);
+                    var html = template(rowData);
+                    return html;
+                },
+                onRowExpand: async ($row) => {
+                    let options = {
+                        columns: columnsPersonasDetalle,
+                        rowId: "id",
+                        parentTable: tablePersonas
+                    };
+                    let tableHtml = $($row.child()).find("table");
+                    let nestedDataTable = new BaseDataTable(tableHtml, options);
+                    nestedDataTable.init();
+                    return nestedDataTable;
+                }
             })
-            datatablePersonas.init();
+            tablePersonas.init();
 
 
         });
@@ -40,8 +101,29 @@
 </head>
 
 <body>
-    <table id="personas" class="display" width="100%" height="60%"></table>
-    <table id="example" class="display" width="100%" height="60%"></table>
+    <div class="container">
+        <table id="tablePersonas" class="cell-border tabla-general stripe display dataTable no-footer" width="80%" height="60%"></table>
+    </div>
+    <script id="nested-table-template-01" type="text/x-handlebars-template">
+        <table class="cell-border tabla-general stripe hijos" width="50%" id='row_expanded_{{id}}'>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{# each Detalle}}
+                    <tr id="{{idDetalle}}" data-parentid="{{id}}">
+                        <td>{{actividad}}</td>
+                        <td>{{duracion}}</td>
+                        <td>{{esfuerzo}}</td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </script>
 </body>
 
 </html>

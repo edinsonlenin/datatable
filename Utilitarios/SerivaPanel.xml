@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--<PresetInfo PresetName="SerivaPanel" PresetDescription="Un preset estandar para paneles" PresetType="Appearance" />-->
+<igmisc:WebPanel BorderWidth="1px" BorderColor="#012D96" BorderStyle="Solid">
+  <PanelStyle>
+	<Padding Bottom="0px" Left="0px" Top="0px" Right="0px" />
+  </PanelStyle>
+  <Header TextAlignment="Center">
+    <ExpandedAppearance>
+      <Style BorderWidth="1px" Font-Size="10pt" Font-Names="Verdana" Font-Bold="True" BorderColor="#012D96" ForeColor="White" BackgroundImage="igpnl_office2k3_drk.png">
+        <Padding Bottom="0px" Left="0px" Top="0px" Right="0px" />
+      </Style>
+    </ExpandedAppearance>
+    <ExpansionIndicator CollapsedImageUrl="downarrows_white.gif" ExpandedImageUrl="uparrows_white.gif"/>
+  </Header>
+</igmisc:WebPanel>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--<PresetInfo PresetName="SerivaGrid" PresetDescription="Preset estándar para Grids" PresetType="All" />-->
+<igtbl:UltraWebGrid>
+	<Rows />
+	<Bands>
+		<igtbl:UltraGridBand AddButtonCaption="" AddButtonToolTipText="" DataKeyField="">
+			<RowExpandEffects />
+			<SelectedHeaderStyle />
+			<RowExpAreaStyle />
+			<HeaderStyle />
+			<GroupByRowStyle />
+			<EditCellStyle />
+			<RowAlternateStyle />
+			<Columns />
+			<RowTemplateStyle />
+			<RowStyle />
+			<FooterStyle />
+			<SelectedRowStyle />
+			<SelectedGroupByRowStyle />
+			<RowSelectorStyle />
+		</igtbl:UltraGridBand>
+	</Bands>
+	<DisplayLayout AllowAddNewDefault="No" BorderCollapseDefault="Separate" RowHeightDefault="20px"
+		TableLayout="Fixed" RowSelectorsDefault="No" CellClickActionDefault="RowSelect" SelectTypeRowDefault="Single"
+		StationaryMargins="Header">
+		<AddNewBox>
+			<Style BorderWidth="1px" BorderStyle="Solid" BackColor="LightGray">
+				<BorderDetails ColorTop="White" WidthLeft="1px" WidthTop="1px" ColorLeft="White" />
+			</Style>
+			<ButtonStyle />
+		</AddNewBox>
+		<EditCellStyleDefault BorderWidth="1px" BorderStyle="Inset" ForeColor="Black" />
+		<FooterStyleDefault BorderWidth="1px" BorderStyle="Solid" BackColor="#7FA6E1">
+			<BorderDetails ColorTop="White" WidthLeft="1px" WidthTop="1px" ColorLeft="White" />
+		</FooterStyleDefault>
+		<FrameStyle Width="95%" BorderWidth="1px" Font-Size="8pt" Font-Names="Arial,Helvetica" BorderStyle="Solid"
+			Height="100%" />
+		<HeaderStyleDefault Font-Names="Arial,Helvetica" Font-Bold="True" BorderStyle="Solid" ForeColor="Navy"
+			 BackColor="#AAD3F2">
+			<BorderDetails ColorTop="White" WidthLeft="1px" WidthTop="1px" ColorLeft="White" />
+		</HeaderStyleDefault>
+		<Pager PagerAppearance="Top">
+			<Style BorderWidth="1px" Font-Bold="True" BorderStyle="Solid" ForeColor="Navy" BackColor="AliceBlue">
+				<BorderDetails ColorTop="White" WidthLeft="1px" WidthTop="1px" ColorLeft="White" />
+			</Style>
+			<ComboStyle />
+		</Pager>
+		<RowAlternateStyleDefault BackColor="#F7F7F7" />
+		<RowSelectorStyleDefault VerticalAlign="Middle" Font-Size="10pt" Font-Bold="True" BorderColor="Silver" BackColor="Transparent"
+			Wrap="True" />
+		<RowStyleDefault Cursor="Default" BorderWidth="1px" BorderColor="Gray" BorderStyle="Solid">
+			<Padding Left="3px" />
+			<BorderDetails WidthLeft="0px" WidthTop="0px" />
+		</RowStyleDefault>
+		<SelectedRowStyleDefault BorderColor="White" ForeColor="White" BackColor="#6791C9" />
+	</DisplayLayout>
+</igtbl:UltraWebGrid>

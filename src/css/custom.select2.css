@@ -1,0 +1,15 @@
+﻿@import url('../assets/select2/css/select2.min.css');
+
+.select2-selection__rendered {
+    line-height: 20px !important;
+    font-size: 9pt;
+    padding-left: 2px !important;
+}
+
+.select2-container .select2-selection--single {
+    height: 20px !important;
+}
+
+.select2-selection__arrow {
+    height: 20px !important;
+}

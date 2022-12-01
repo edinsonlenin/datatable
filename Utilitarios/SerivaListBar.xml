@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--<PresetInfo PresetName="SerivaListBar" PresetDescription="Preset estandar para ListBar" PresetType="All" />-->
+<iglbar:UltraWebListbar BarWidth="100%" BorderStyle="Solid" MergeStyles="True" EnableViewState="False" BorderColor="#E0E0E0" ItemSelectionStyle="IconOnlySelection" BorderWidth="1px" Font-Names="Arial,Helvetica">
+  <DefaultGroupStyle Cursor="Default" Height="100%" BackColor="White"/>
+  <DefaultItemStyle Cursor="Default" Font-Size="10pt">
+    <Padding Left="5px" />
+    <Margin Left="1px" />
+  </DefaultItemStyle>
+  <DefaultItemHoverStyle Cursor="Hand" BorderWidth="1px" BorderStyle="Outset">
+    <Margin Left="0px" />
+  </DefaultItemHoverStyle>
+  <DefaultGroupButtonSelectedStyle Cursor="Default" ForeColor="Black" BackgroundImage="../Utilitarios/Imagenes/ListBarFondo.jpg" BackColor="Silver" />
+  <DefaultItemSelectedStyle Cursor="Default" BorderWidth="1px" Font-Bold="True" BorderStyle="Inset" BackColor="#F7F7F7">
+    <Margin Left="0px" />
+  </DefaultItemSelectedStyle>
+  <DefaultGroupButtonStyle Cursor="Hand" Height="24px" Font-Size="10pt" Font-Bold="True" Font-Names="Arial Narrow" ForeColor="Black" BackgroundImage="../Utilitarios/Imagenes/ListBarFondo.jpg">
+    <Padding Left="3px" />
+  </DefaultGroupButtonStyle>
+  <DefaultGroupButtonHoverStyle Cursor="Hand" ForeColor="Navy" BackgroundImage="../Utilitarios/Imagenes/ListBarFondoOver.jpg" />
+</iglbar:UltraWebListbar>

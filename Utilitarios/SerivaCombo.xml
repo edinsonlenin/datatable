@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<PresetInfo PresetName="SerivaCombo" PresetDescription="Preset Estandar para Combos" PresetType="All" />-->
+<igcmbo:WebCombo BorderStyle="Solid" DropImage1="/ig_common/images/igcmbo_mscrmup.gif" DropImage2="/ig_common/images/igcmbo_mscrmdown.gif" BorderWidth="1px" DropImageXP1="/ig_common/images/igcmbo_mscrmup.gif" DropImageXP2="/ig_common/images/igcmbo_mscrmdown.gif" SelBackColor="255, 255, 255" BackColor="White" ForeColor="Black" Font-Size="8pt" Font-Names="Arial" BorderColor="#7B9EBD" SelForeColor="Black" Version="3.00">
+  <DropDownLayout DropdownWidth="" BorderCollapse="Separate" RowSelectors="No" RowHeightDefault="20px" HeaderClickAction="Select" JavaScriptFileName="/ig_common/20051/scripts/ig_WebGrid.js" DropdownHeight="150px" TableLayout="Fixed" ColWidthDefault="" StationaryMargins="Header" AllowColSizing="Free">
+    <RowStyle BorderWidth="1px" Font-Size="8pt" Font-Names="Arial" BorderColor="LightGray" BorderStyle="Solid" BackColor="White">
+      <BorderDetails WidthLeft="0px" WidthTop="0px" />
+    </RowStyle>
+    <RowSelectorStyle />
+    <SelectedRowStyle ForeColor="Black" BackColor="#D1D1D1" />
+    <HeaderStyle Font-Size="8pt" Font-Names="Arial" Font-Bold="True" BorderStyle="None" ForeColor="Navy" />
+    <RowAlternateStyle />
+    <FooterStyle />
+    <FrameStyle Cursor="Default" BorderWidth="1px" BorderColor="Silver" BorderStyle="Solid" BackColor="#F7F7F7" Height="150px" CustomRules="overflow:auto" />
+    <ImageUrls />
+  </DropDownLayout>
+  <ExpandEffects ShadowColor="LightGray" />
+</igcmbo:WebCombo>

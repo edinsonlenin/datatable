@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--<PresetInfo PresetName="SerivaNumericEdit" PresetDescription="Preset estándar para NumericEdit de Seriva" PresetType="All" />-->
+<igtxt:WebNumericEdit BorderStyle="Solid" BorderWidth="1px" CellSpacing="1" UseBrowserDefaults="False" BorderColor="#7F9DB9" CssClass="texto-negro-peque">
+  <ButtonsAppearance CustomButtonDefaultTriangleImages="Arrow">
+    <ButtonPressedStyle BackColor="#83A6F4" />
+    <ButtonStyle Width="13px" BorderWidth="1px" BorderColor="#ABC1F4" BorderStyle="Solid" ForeColor="#506080" BackColor="#C5D5FC" />
+    <ButtonHoverStyle BackColor="#DCEDFD" />
+    <ButtonDisabledStyle BackColor="#E1E1DD" BorderColor="#D7D7D7" ForeColor="#BEBEBE" />
+  </ButtonsAppearance>
+  <SpinButtons DefaultTriangleImages="ArrowSmall" Width="15px" Display="OnRight" />
+</igtxt:WebNumericEdit>

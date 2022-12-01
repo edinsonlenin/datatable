@@ -1,0 +1,11 @@
+SCMBranch=Jhon.Quispe Desarrollo
+SCMRepository=Bolsa/BolsaPresentacion/Utilitarios/BaseControlFormaPago
+SCMMainlineUUID={7dd40781-66af-4f7c-9416-11202de1e84c}
+SCMBranchRepositoryID=23012
+ControlBase.cs;734017429;2;1365200139;|977|103120
+PaginaBase.cs;2424317569;2;1365200140;|978|103121
+PaginaBaseDatosEstructurales.cs;3908807074;1;1365200140;|979|21825
+PaginaBaseDropDowns.cs;1202536686;2;1365200140;|980|103122
+PaginaBaseGrids.cs;10463779;1;1365200140;|981|21831
+PaginaBaseManejoError.cs;3699933299;1;1365200140;|982|21837
+PaginaBaseTabs.cs;1441514440;1;1365200141;|983|94164

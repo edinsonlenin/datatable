@@ -1,0 +1,175 @@
+﻿.ToolBarDef {
+    margin-right: 2px;
+    width: 36px;
+    height: 22px;
+    background-image: url(../../Framework/Imagenes/bckgr-Button.gif);
+    text-align: center;
+    padding-left: 7px;
+    padding-top: 2px;
+}
+
+    .ToolBarDef:hover {
+        margin-right: 2px;
+        width: 36px;
+        height: 22px;
+        background-image: url(../../Framework/Imagenes/bckgr-ButtonHover.gif);
+        text-align: center;
+        padding-left: 7px;
+        padding-top: 2px;
+    }
+
+.divTable-Position {
+    overflow: hidden;
+    table-layout: fixed;
+    z-index: 104;
+    position: absolute;
+    left: 10px;
+    top: 50px;
+    width: 99%;
+    height: 80%;
+    font-family: Arial,Helvetica;
+    font-size: 8pt;
+    border-style: Solid;
+    border-width: 1px;
+}
+
+.Table-Header {
+    font-family: Arial,Helvetica;
+    font-size: 8pt;
+    font-weight: bold;
+    background-color: LightGrey;
+    border-color: Gray;
+    border-style: Solid;
+    border-width: 1px;
+    border-left-color: White;
+    border-top-color: White;
+    border-left-width: 1px;
+    border-top-width: 1px;
+    color: Navy;
+    padding-left: 3px;
+    cursor: Default;
+    background-image: url(../../Framework/Imagenes/HeaderFondo.jpg);
+    vertical-align: top;
+    text-align: center !important;
+    padding: 5px !important;
+}
+
+.datagrid-htable tbody tr td {
+    font-family: Arial,Helvetica;
+    font-size: 8pt;
+    font-weight: bold;
+    background-color: LightGrey;
+    border-color: Gray;
+    border-style: Solid;
+    border-width: 1px;
+    border-left-color: White;
+    border-top-color: White;
+    border-left-width: 1px;
+    border-top-width: 1px;
+    color: Navy;
+    padding-left: 3px;
+    cursor: Default;
+    background-image: url(../../Framework/Imagenes/HeaderFondo.jpg);
+    vertical-align: top;
+    text-align: center !important;
+    padding: 5px !important;
+}
+
+.datagrid-htable tbody tr td span {
+   font-size: 8pt !important;
+}
+
+.datagrid-htable {
+    height: 30px !important;
+}
+
+.datagrid-header {
+    height: 28px !important;
+}
+
+
+.datagrid-btable tbody tr {
+    height: 24px !important;
+}
+
+.datagrid-btable tbody tr td {
+    font-family: Arial,Helvetica;
+    font-size: 8pt;
+    border-color: Gray;
+    border-style: Solid;
+    border-width: 1px;
+    border-left-color: White;
+    border-top-color: White;
+    border-left-width: 1px;
+    border-top-width: 1px;
+    padding-left: 3px;
+    vertical-align: top;
+    padding: 5px !important;
+}
+
+.datagrid-btable tbody tr td div {
+    line-height: 18px !important;
+    font-size: 12px !important;
+}
+
+.Table-RowsCliente {
+    font-family: Arial !important;
+    font-size: 8pt !important;
+    border-color: Gray !important;
+    border-style: Solid !important;
+    border-width: 1px !important;
+    border-left-width: 0px !important;
+    border-top-width: 0px !important;
+    padding: 3px !important;
+    cursor: Default !important;
+}
+
+.Table-RowsClienteM {
+    font-family: Arial !important;
+    font-size: 8pt !important;
+    border-color: Gray !important;
+    border-style: Solid !important;
+    border-width: 1px !important;
+    border-left-width: 0px !important;
+    border-top-width: 0px !important;
+    padding: 3px !important;
+    cursor: Default !important;
+    background-color: red !important;
+    color: white !important;
+}
+
+.Table-RowsClienteCenter {
+    text-align:center !important;
+}
+
+
+.ui-modal-width {
+    width: 400px;
+}
+
+.ui-modal {
+    top: 0;
+    left: 0;
+    padding: 0.2em;
+    outline: 0
+}
+    .ui-modal .ui-modal-header {
+        border-bottom: #6593cf 1px solid;
+        border-left: #6593cf 8px solid;
+        font: bolder 0px Arial, Verdana, Helvetica;
+        background: #6593cf;
+        color: #ffffff;
+        border-top: #6593cf 1px solid;
+        border-right: #6593cf 1px solid;
+        padding: 0.4em 1em;
+    }
+
+
+.row-selected {
+    box-shadow: inset 0 0 0 9999px #6691c8 !important;
+}
+
+.divImgTable {
+    background: linear-gradient(to bottom, rgba(200,224,250,1) 0%, rgba(149,179,222,1) 100%) !important;
+    width: 4%;
+}

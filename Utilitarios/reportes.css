@@ -1,0 +1,304 @@
+body
+{
+	OVERFLOW: auto;
+	font: Arial;
+	cursor:default;	
+}
+
+/* Formato Reportes */
+.TituloCentrado
+{
+	font-weight: bold;
+	font-size: 14pt;
+	color:  Black;
+	text-align: center;	
+}
+
+.TituloCentradoNormal
+{
+	font-weight: normal;
+	font-size: 14pt;
+	color:  Black;
+	text-align: center;	
+}
+
+.TituloIzquierda
+{
+	font-weight: bold;
+	font-size: 14pt;
+	color:  Black;
+	text-align: left;	
+}
+
+.TituloIzquierdaNormal
+{
+	font-weight: normal;
+	font-size: 14pt;
+	color:  Black;
+	text-align: left;	
+}
+
+.TituloDerecha
+{
+	font-weight: bold;
+	font-size: 14pt;
+	color:  Black;
+	text-align: right;	
+}
+
+.TituloDerechaNormal
+{
+	font-weight: normal;
+	font-size: 14pt;
+	color:  Black;
+	text-align: right;	
+}
+
+.SubTituloCentrado
+{
+	font-family: Arial, Verdana, Helvetica;	
+	font-weight: bold;
+	font-size: 12pt;
+	color: Black ;    
+    text-align :center;
+    text-decoration: underline;    
+}
+
+.SubTituloCentradoNormal
+{
+	font-family: Arial, Verdana, Helvetica;
+	font-weight: normal;
+	font-size: 12pt;
+	color: Black ;    
+    text-align :center;    
+}
+
+.SubTituloIzquierda
+{
+	font-weight:bold;
+	font-size: 12pt;
+	color: Black;    
+    text-align :left;    
+}
+
+.SubTituloIzquierdaNormal
+{
+	font-weight:normal;
+	font-size: 12pt;
+	color: Black;    
+    text-align :left;    
+}
+
+.SubTituloDerecha
+{
+	font-weight: bold;
+	font-size: 12pt;
+	color: Black ;    
+    text-align : right;    
+}
+
+.SubTituloDerechaNormal
+{
+	font-weight: normal;
+	font-size: 12pt;
+	color: Black ;    
+    text-align : right;    
+}
+
+.ParametroIzquierda
+{
+	font-weight: bold;
+	font-size: 10pt;
+	color:Black ;	
+	text-align:left;
+}
+
+.ParametroIzquierdaNormal
+{
+	font-weight:normal;
+	font-size: 10pt;
+	color:Black ;	
+	text-align:left;
+}
+
+.ParametroDerecha
+{
+	font-weight: bold;
+	font-size: 10pt;
+	color:Black ;	
+	text-align:right;
+}
+
+.ParametroDerechaNormal
+{
+	font-weight:normal;
+	font-size: 10pt;
+	color:Black ;
+	text-align:right;
+}
+
+.TituloDetalleCentrado
+{
+	font-family: Arial, Verdana, Helvetica;
+	font-weight: bold;
+	font-size: 8pt;
+	color: Black;	
+	text-align: center;
+}
+
+.TituloDetalleCentradoNormal
+{
+	font-family: Arial, Verdana, Helvetica;
+	font-weight: normal;
+	font-size: 8pt;
+	color: Black;	
+	text-align: center;
+}
+
+.TituloDetalleIzquierda
+{
+	font-family: Arial, Verdana, Helvetica;
+	font-weight: bold;
+	font-size: 8pt;
+	color: Black;	
+	text-align: left;
+}
+
+.TituloDetalleIzquierdaNormal
+{
+	font-family: Arial, Verdana, Helvetica;
+	font-weight: normal;
+	font-size: 8pt;
+	color: Black;	
+	text-align: left;
+}
+
+.TituloDetalleDerecha
+{
+	font-family: Arial, Verdana, Helvetica;
+	font-weight: bold;
+	font-size: 8pt;
+	color: Black;	
+	text-align: right;
+}
+
+.TituloDetalleDerechaNormal
+{
+	font-family: Arial, Verdana, Helvetica;
+	font-weight: normal;
+	font-size: 8pt;
+	color: Black;	
+	text-align: right;
+}
+
+.DetalleCentrado
+{
+	font-family: Arial, Verdana, Helvetica;
+	font-weight: bold;
+	font-size: 8pt;
+	color:Black;
+	text-align: center;
+}
+
+.DetalleCentradoNormal
+{
+	font-family: Arial, Verdana, Helvetica;
+	font-weight:normal;
+	font-size: 8pt;
+	color:Black;
+	text-align: center;
+}
+
+.DetalleIzquierda
+{
+	font-family: Arial, Verdana, Helvetica;
+	font-weight: bold;
+	font-size: 8pt;
+	color:Black;
+	text-align: left;	
+}
+
+.DetalleIzquierdaNormal
+{
+	font-family: Arial, Verdana, Helvetica;
+	font-weight: normal;
+	font-size: 8pt;
+	color:Black;
+	text-align: left;	
+}
+
+.DetalleDerecha
+{
+	font-family: Arial, Verdana, Helvetica;
+	font-weight: bold;
+	font-size: 8pt;
+	color:Black;
+	text-align: right;	
+}
+
+.DetalleDerechaNormal
+{
+	font-family: Arial, Verdana, Helvetica;
+	font-weight: normal;
+	font-size: 8pt;
+	color:Black;
+	text-align: right;	
+}
+
+/* Formato BCP */
+.CentradoBanco
+{
+	font-weight: bold;
+	font-size: 12pt;
+	color:  Black;	
+	text-align: center;	
+}
+
+.IzquierdaBanco
+{
+	font-weight: bold;
+	font-size: 12pt;
+	color:  Black;	
+	text-align: left;	
+}
+
+.DerechaBanco
+{
+	font-weight: bold;
+	font-size: 12pt;
+	color:  Black;	
+	text-align: right;	
+}
+
+.CentradoNormalBanco
+{
+	font-weight: normal;
+	font-size: 12pt;
+	color:  Black;	
+	text-align: center;	
+}
+
+.IzquierdaNormalBanco
+{
+	font-weight: normal;
+	font-size: 12pt;
+	color:  Black;	
+	text-align: left;	
+}
+
+.DerechaNormalBanco
+{
+	font-weight: normal;
+	font-size: 12pt;
+	color:  Black;	
+	text-align: right;	
+}
+
+.Texto
+{
+	font-family: Formata Regular, Arial, Tahoma;
+	font-weight: normal;
+	font-size: 10pt;	
+	color:  Black;
+	text-align: justify;
+}

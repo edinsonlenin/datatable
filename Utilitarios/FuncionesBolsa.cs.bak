@@ -1,0 +1,535 @@
+using System;
+using System.Data;
+using System.Globalization;
+using System.Web;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+using System.Web.SessionState;
+using Seriva.Bolsa.Herramientas.Constantes;
+using Seriva.Bolsa.Herramientas.Utilitarios;
+using Seriva.Bolsa.Entidad.General;
+using Seriva.Bolsa.Entidad.Cliente;
+using Seriva.Bolsa.Entidad.RentaFija.MercadoPrimario;
+using Seriva.Bolsa.Entidad.Estructurales;
+using Seriva.Bolsa.Negocio.Estructurales;
+using Seriva.Bolsa.Negocio.General;
+using Seriva.Bolsa.Negocio.Cliente;
+using Seriva.Bolsa.Negocio.RentaFija.Reporte;
+using Seriva.Bolsa.Negocio.RentaFija.MercadoPrimario;
+using Infragistics.WebUI.WebCombo;
+using Infragistics.Excel;
+using Infragistics.WebUI.UltraWebGrid;
+using Microsoft.Practices.EnterpriseLibrary.ExceptionHandling;
+using Mensaje = Seriva.Bolsa.Herramientas.Lenguaje;
+
+namespace Seriva.Bolsa.Presentacion.Utilitarios
+{
+	/// <summary>
+	/// Summary description for FuncionesGenerales.
+	/// </summary>
+	public class FuncionesBolsa
+	{
+		public static string CurrentInstanceName;
+
+		#region Obtener Monedas Bolsa
+		public static DataView ObtenerMonedasBolsa()
+		{
+			DataView viewMonedas = null;
+			try
+			{
+				DatosEstructuralesDataSet datosEstructurales = new DatosEstructurales(CurrentInstanceName).ObtenerDatosEstructurales();
+				ItemTablaDataSet          itemTabla                 = new ItemTabla(CurrentInstanceName).ObtenerPorCodigoTabla(ConstantesBolsa.TABLA_MONEDAS_BOLSA);
+				viewMonedas   = ObtenerMonedasBolsa(datosEstructurales,itemTabla);
+			}
+			catch
+			{
+				viewMonedas = null;
+			}
+			return viewMonedas;
+		}
+		public static DataView ObtenerMonedasBolsa(DatosEstructuralesDataSet datosEstructurales, ItemTablaDataSet itemTabla)
+		{
+			DataView viewMonedas = null;
+			try
+			{
+				if(datosEstructurales.SER_MONEDA.Rows.Count > 0)
+				{
+
+					if(itemTabla.SER_ITEMTABLA.Rows.Count > 0)
+					{
+						string filtro = string.Empty;
+						viewMonedas = new DataView(datosEstructurales.SER_MONEDA);
+
+						foreach (ItemTablaDataSet.SER_ITEMTABLARow filaItemTabla in itemTabla.SER_ITEMTABLA)
+						{
+							if(filtro.Equals(string.Empty))
+							{
+								filtro = " CODMONEDA IN ('" + Convert.ToString(Convert.ToInt32(filaItemTabla.CODIGOITEM));
+							}
+							else
+							{
+								filtro = filtro + "','" + Convert.ToString(Convert.ToInt32(filaItemTabla.CODIGOITEM));
+							}
+						}
+						filtro = filtro + "')";
+
+						viewMonedas.RowFilter = filtro;
+					}
+				}
+			}
+			catch
+			{
+				viewMonedas = null;
+			}
+
+			return viewMonedas;
+		}
+		#endregion
+
+		#region Obtener Cuentas MDC, Caval y Mancomunos
+		public static bool b_CargarCuentasMDC(WebCombo wcbCuentaMDC, int codigoCliente, bool tieneCustodia )
+		{
+			bool existeCuentas = false;
+			try
+			{
+				FuncionesGenerales.of_LimpiarWebCombo(wcbCuentaMDC);
+				DataSet cuentasMDC =new ClienteBolsa(CurrentInstanceName).ObtenerCuentasMDCPorCodigoCliente(codigoCliente,tieneCustodia);
+				if (cuentasMDC.Tables[0].Rows.Count>0)
+				{
+					FuncionesGenerales.of_LlenarWebComboVariasColumnas(wcbCuentaMDC,cuentasMDC.Tables[0],"CODCUENTAMDC","NUMEROCUENTAMDC",false);
+					if(wcbCuentaMDC.Rows.Count > 0)
+					{
+						wcbCuentaMDC.Enabled=true;
+						wcbCuentaMDC.SelectedIndex=0;
+						existeCuentas = true;
+					}
+
+				}
+			}
+			catch(Exception oException)
+			{
+				bool rethrow = ExceptionPolicy.HandleException(oException,ConstantesConfiguracion.EXCEPCION_POLITICA_PRESENTACION);
+				if (rethrow) throw;
+			}
+			return existeCuentas;
+
+		}
+
+		public static bool b_CargarCuentasCaval(WebCombo wcbCuentasCaval, int codigoCliente )
+		{
+			bool existeCuentas = false;
+			try
+			{
+				FuncionesGenerales.of_LimpiarWebCombo(wcbCuentasCaval);
+				DataSet cuentasCaval = new ClienteBolsa(CurrentInstanceName).ObtenerCavalPorCliente(Convert.ToInt32(codigoCliente));
+				if (cuentasCaval.Tables[0].Rows.Count>0)
+				{
+					FuncionesGenerales.of_LlenarWebComboVariasColumnas(wcbCuentasCaval,cuentasCaval.Tables[0],"CODCUENTACUSTODIO","NUMERO",false);
+					if(wcbCuentasCaval.Rows.Count > 0)
+					{
+						wcbCuentasCaval.Enabled=true;
+						wcbCuentasCaval.SelectedIndex = 0;
+						existeCuentas = true;
+					}
+				}
+			}
+			catch(Exception oException)
+			{
+				bool rethrow = ExceptionPolicy.HandleException(oException,ConstantesConfiguracion.EXCEPCION_POLITICA_PRESENTACION);
+				if (rethrow) throw;
+			}
+			return existeCuentas;
+
+		}
+
+		public static bool b_CargarMancomunos(WebCombo wcbMancomunos, int codigoCuentaMDC )
+		{
+			bool existeMancomunos = false;
+			try
+			{
+				FuncionesGenerales.of_LimpiarWebCombo(wcbMancomunos);
+				DataSet mancomunos =new ClienteBolsa(CurrentInstanceName).ObtenerClientesPorCuentaMDC(codigoCuentaMDC);
+				if (mancomunos.Tables[0].Rows.Count>0)
+				{
+					FuncionesGenerales.of_LlenarWebComboVariasColumnas(wcbMancomunos,mancomunos.Tables[0],"CODCUENTACUSTODIA","NUMERO",false);
+					if(wcbMancomunos.Rows.Count > 0)
+					{
+						wcbMancomunos.Enabled=true;
+						wcbMancomunos.SelectedIndex = 0;
+						existeMancomunos = true;
+					}
+				}
+			}
+			catch(Exception oException)
+			{
+				bool rethrow = ExceptionPolicy.HandleException(oException,ConstantesConfiguracion.EXCEPCION_POLITICA_PRESENTACION);
+				if (rethrow) throw;
+			}
+			return existeMancomunos;
+
+		}
+
+		public static void CargarRepresentantes(int codigoCliente, DropDownList ddlRepresentante)
+		{
+			//ddlRepresentante.Items.Clear;
+			RepresentanteLegal representanteLegalDataSet = new ClienteBolsa(CurrentInstanceName).ObtenerRepresentantes(codigoCliente);
+			ddlRepresentante.DataTextField = "DESCRIPCION";
+			ddlRepresentante.DataValueField = "CODREPRESENTANTE";
+			ddlRepresentante.DataSource = representanteLegalDataSet;
+			ddlRepresentante.DataBind();
+			if(ddlRepresentante.Items.Count > 0)
+			{
+				ddlRepresentante.SelectedIndex = 0;
+			}
+		}
+
+		#endregion
+
+		#region Layouts comunes
+		public static void GetLayoutCuentasMDC (WebCombo wcbCuentaMDC)
+		{
+			foreach(Infragistics.WebUI.UltraWebGrid.UltraGridColumn columna in wcbCuentaMDC.Columns)
+			{
+				columna.Hidden = true;
+			}
+
+			wcbCuentaMDC.Columns.FromKey("NOMBRE").Hidden	= false;
+			wcbCuentaMDC.Columns.FromKey("NOMBRE").Width	= 150;
+			wcbCuentaMDC.Columns.FromKey("NOMBRE").Move(1);
+
+			wcbCuentaMDC.Columns.FromKey("NUMEROCUENTAMDC").Hidden	= false;
+			wcbCuentaMDC.Columns.FromKey("NUMEROCUENTAMDC").Width	= 150;
+			wcbCuentaMDC.Columns.FromKey("NUMEROCUENTAMDC").Move(0);
+
+			new FormatoControl().AplicarFormato(wcbCuentaMDC, (int)FormatoWebCombo.Clasico);
+
+		}
+
+		public static void GetLayoutCaval (WebCombo wcbCaval)
+		{
+
+			foreach(Infragistics.WebUI.UltraWebGrid.UltraGridColumn columna in wcbCaval.Columns)
+			{
+				columna.Hidden = true;
+			}
+
+			wcbCaval.Columns.FromKey("NUMERO").Hidden	= false;
+			wcbCaval.Columns.FromKey("NUMERO").Width	= 150;
+			wcbCaval.Columns.FromKey("NUMERO").Move(0);
+
+			wcbCaval.Columns.FromKey("NOMBRE").Hidden	= false;
+			wcbCaval.Columns.FromKey("NOMBRE").Width	= 150;
+			wcbCaval.Columns.FromKey("NOMBRE").Move(1);
+
+			new FormatoControl().AplicarFormato(wcbCaval, (int)FormatoWebCombo.Clasico);
+
+		}
+
+		public static void GetLayoutMancomunos(WebCombo wcbMancomunos)
+		{
+
+			foreach(Infragistics.WebUI.UltraWebGrid.UltraGridColumn columna in wcbMancomunos.Columns)
+			{
+				columna.Hidden = true;
+			}
+
+			wcbMancomunos.Columns.FromKey("CODCLIENTE").Hidden	= false;
+			wcbMancomunos.Columns.FromKey("CODCLIENTE").Width	= 150;
+
+			wcbMancomunos.Columns.FromKey("NUMEROCUENTAMDC").Hidden	= false;
+			wcbMancomunos.Columns.FromKey("NUMEROCUENTAMDC").Width	= 150;
+			new FormatoControl().AplicarFormato(wcbMancomunos, (int)FormatoWebCombo.Clasico);
+
+		}
+		#endregion
+
+		#region Validación de Clientes
+		public static bool EsValidoIngresoOrden(ClienteBolsaDataSet clienteBolsaDataSet, out string mensajeValidacionCliente)
+		{
+			bool esValido = false;
+			mensajeValidacionCliente = String.Empty;
+			ClienteBolsa clienteBolsa = new ClienteBolsa(CurrentInstanceName);
+			ClienteBolsa.RazonNegociacionNoValida razonNoValida = clienteBolsa.ValidaNegociacionCliente(clienteBolsaDataSet);
+			switch(razonNoValida)
+			{
+				case ClienteBolsa.RazonNegociacionNoValida.Ninguno:
+					esValido = true;
+					break;
+				case ClienteBolsa.RazonNegociacionNoValida.EstadoEstructuralInactivo:
+					mensajeValidacionCliente = new Mensaje.MensajeAplicacion().ObtenerMensaje("MensajeClienteEstructuralInactivo");
+					break;
+				case ClienteBolsa.RazonNegociacionNoValida.EstadoBolsaInactivo:
+					mensajeValidacionCliente = new Mensaje.MensajeAplicacion().ObtenerMensaje("MensajeClienteBolsaInactivo");
+					break;
+				case ClienteBolsa.RazonNegociacionNoValida.Nombre:
+					mensajeValidacionCliente = new Mensaje.MensajeAplicacion().ObtenerMensaje("MensajeClienteNombreNoCoincideEstructural");
+					break;
+				case ClienteBolsa.RazonNegociacionNoValida.TipoDocumentoIdentidad:
+					mensajeValidacionCliente = new Mensaje.MensajeAplicacion().ObtenerMensaje("MensajeClienteTipoDocIdNoCoincideEstructural");
+					break;
+				case ClienteBolsa.RazonNegociacionNoValida.NumeroDocumentoIdentidad:
+					mensajeValidacionCliente = new Mensaje.MensajeAplicacion().ObtenerMensaje("MensajeClienteNumeroDocIdNoCoincideEstructural");
+					break;
+				case ClienteBolsa.RazonNegociacionNoValida.Direccion:
+					mensajeValidacionCliente = new Mensaje.MensajeAplicacion().ObtenerMensaje("MensajeClienteDireccionNoCoincideEstructural");
+					break;
+				case ClienteBolsa.RazonNegociacionNoValida.NoTieneCaval:
+					mensajeValidacionCliente = new Mensaje.MensajeAplicacion().ObtenerMensaje("MensajeClienteNoTieneCaval");
+					break;
+			}
+
+			return esValido;
+		}
+		#endregion
+
+		#region Comunes en OPR
+		/// <summary>
+		/// Obtiene el factor conversor de una moneda a otra.
+		/// Si tipo Cambio != 1 entonces quiere decir que la moneda de parametro se va a
+		/// a convertir a otra moneda. 
+		/// En tal caso si la moneda del parametro es soles entonces se quiere convertir a dolares
+		/// caso contrario se quiere convertir a soles.
+		/// </summary>
+		/// <param name="tipoCambio"></param>
+		/// <param name="moneda"></param>
+		/// <returns></returns>
+		public static decimal ObtenerFactorTipoCambio(decimal tipoCambio,int moneda)
+		{
+			decimal factor = decimal.One;
+			if (tipoCambio != Decimal.One)
+			{
+				if (moneda.ToString().Equals(ConstantesBolsa.TIPO_MONEDA_SOLES))
+					factor = Decimal.Divide(1,tipoCambio);
+				else
+					factor = tipoCambio;
+			}
+			return factor;
+		}
+		public static int ValidarOperacionesReporte(e_ValidacionReporte origenValidacion,out string mensaje)
+		{
+			string prefijoMensaje = String.Empty;
+			mensaje = String.Empty;
+			int codigoValidacion = -1;
+
+			HttpSessionState Session = HttpContext.Current.Session;
+			ParametroBolsaDataSet parametroBolsaDataSet = Session[ConstantesSession.OPR_PARAMETROSBOLSA] as ParametroBolsaDataSet;
+			codigoValidacion = new OrdenReporte(CurrentInstanceName).ValidarOperacionesReporte(parametroBolsaDataSet);
+
+			bool flagIngresoRte = false;
+			if (origenValidacion == e_ValidacionReporte.IngresoOrdenesRte)
+			{
+				prefijoMensaje = "IngresoOrden";
+				flagIngresoRte = true;
+			}
+			if (origenValidacion == e_ValidacionReporte.IngresoOrdenesRdo)
+				prefijoMensaje = "IngresoOrden";
+			if (origenValidacion == e_ValidacionReporte.Administracion)
+				prefijoMensaje = "AdministracionOrdenes";
+			if (origenValidacion == e_ValidacionReporte.Asociacion)
+				prefijoMensaje = "AsociacionOrdenes";
+			if (origenValidacion == e_ValidacionReporte.Negociacion)
+				prefijoMensaje = "NegociacionOrdenes";
+			if (origenValidacion == e_ValidacionReporte.Enlace)
+				prefijoMensaje = "EnlaceOrdenes";
+
+			//Para el Caso de Pre-Ordenes si se permite ingresos para el día siguiente.
+			if (codigoValidacion ==1 && !flagIngresoRte)
+				codigoValidacion = 4;
+
+			if (codigoValidacion == 1)
+				mensaje = new Mensaje.MensajeAplicacion().ObtenerMensaje(prefijoMensaje+".MensajeOrdenesDiaSiguiente");
+			if (codigoValidacion == 2)
+				mensaje = new Mensaje.MensajeAplicacion().ObtenerMensaje(prefijoMensaje+".MensajeOrdenesFueraHorario");
+			if (codigoValidacion == 3)
+				mensaje = new Mensaje.MensajeAplicacion().ObtenerMensaje(prefijoMensaje+".MensajeOrdenesNoCustodia");
+			if (codigoValidacion == 4)
+				mensaje = new Mensaje.MensajeAplicacion().ObtenerMensaje(prefijoMensaje+".MensajeOrdenesNoMercado");
+			if (codigoValidacion == 5)
+
+				if (flagIngresoRte)
+				{
+					mensaje = new Mensaje.MensajeAplicacion().ObtenerMensaje(prefijoMensaje+".MensajePreOrdenesNoMercado");
+				}
+			    else
+				{
+					mensaje = new Mensaje.MensajeAplicacion().ObtenerMensaje(prefijoMensaje+".MensajeOrdenesNoMercado");
+				}
+
+			return codigoValidacion;
+
+		}
+
+		#endregion
+
+		#region Comunes Subastas
+		public static Workbook ObtenerExcelNegociacionSubasta(int codigoSubasta, int indiceTasaCorte, UltraWebGrid uwgNegociacion,ParametrosFormato parametrosFormato)
+		{
+
+			SubastaDataSet subastaDataSet = new Subasta(CurrentInstanceName).ObtenerPorCodigo(codigoSubasta);
+			DatosEstructuralesDataSet datosEstructuralesDataSet = new DatosEstructurales(CurrentInstanceName).ObtenerDatosEstructurales();
+			SubastaDataSet.SER_SUBASTARow filaSubasta = subastaDataSet.SER_SUBASTA[0];
+			SubastaDataSet.SER_VALORRow filaValor = subastaDataSet.SER_VALOR[0];
+
+			int columnaEtiquetas = 1;
+			int columnaDatos = 2;
+			//int columnaInicioTasas = 2;
+			int fila = 0;
+
+			Workbook workBook = new Workbook();
+			workBook.Worksheets.Add(filaSubasta.NOMBRESUBASTA);
+			workBook.Worksheets[0].Rows[fila].CellFormat.Font.Name =  uwgNegociacion.DisplayLayout.HeaderStyleDefault.Font.Name;
+			workBook.Worksheets[0].Rows[fila].CellFormat.Font.Height =  Convert.ToInt32(uwgNegociacion.DisplayLayout.FrameStyle.Font.Size.Unit.Value)*20;
+			workBook.Worksheets[0].Rows[fila].Cells[columnaEtiquetas].CellFormat.Font.Color = uwgNegociacion.DisplayLayout.HeaderStyleDefault.ForeColor;
+			workBook.Worksheets[0].Rows[fila].Cells[columnaEtiquetas].CellFormat.Font.Bold = ExcelDefaultableBoolean.True;
+			workBook.Worksheets[0].Rows[fila].Cells[columnaEtiquetas].Value = new Mensaje.MensajeAplicacion().ObtenerEtiqueta("CuadroSubasta.aspx.Exportacion.Subasta");
+			workBook.Worksheets[0].Rows[fila].Cells[columnaDatos].Value = filaSubasta.NOMBRESUBASTA;
+			fila++;
+			workBook.Worksheets[0].Rows[fila].CellFormat.Font.Name =  uwgNegociacion.DisplayLayout.HeaderStyleDefault.Font.Name;
+			workBook.Worksheets[0].Rows[fila].CellFormat.Font.Height =  Convert.ToInt32(uwgNegociacion.DisplayLayout.FrameStyle.Font.Size.Unit.Value)*20;
+			workBook.Worksheets[0].Rows[fila].Cells[columnaEtiquetas].CellFormat.Font.Color = uwgNegociacion.DisplayLayout.HeaderStyleDefault.ForeColor;
+			workBook.Worksheets[0].Rows[fila].Cells[columnaEtiquetas].CellFormat.Font.Bold = ExcelDefaultableBoolean.True;
+			workBook.Worksheets[0].Rows[fila].Cells[columnaEtiquetas].Value = new Mensaje.MensajeAplicacion().ObtenerEtiqueta("CuadroSubasta.aspx.Exportacion.Emisor");
+			workBook.Worksheets[0].Rows[fila].Cells[columnaDatos].Value = new Emisor(CurrentInstanceName).ObtenerPorCodigo(filaSubasta.CODEMISOR).SER_CLIENTE[0].DESCRIPCION;
+			fila++;
+			workBook.Worksheets[0].Rows[fila].CellFormat.Font.Name =  uwgNegociacion.DisplayLayout.HeaderStyleDefault.Font.Name;
+			workBook.Worksheets[0].Rows[fila].CellFormat.Font.Height =  Convert.ToInt32(uwgNegociacion.DisplayLayout.FrameStyle.Font.Size.Unit.Value)*20;
+			workBook.Worksheets[0].Rows[fila].Cells[columnaEtiquetas].CellFormat.Font.Color = uwgNegociacion.DisplayLayout.HeaderStyleDefault.ForeColor;
+			workBook.Worksheets[0].Rows[fila].Cells[columnaEtiquetas].CellFormat.Font.Bold = ExcelDefaultableBoolean.True;
+			workBook.Worksheets[0].Rows[fila].Cells[columnaEtiquetas].Value = new Mensaje.MensajeAplicacion().ObtenerEtiqueta("CuadroSubasta.aspx.Exportacion.NombreValor");
+			workBook.Worksheets[0].Rows[fila].Cells[columnaDatos].Value = filaValor.NOMBREVALOR;
+			fila++;
+			workBook.Worksheets[0].Rows[fila].CellFormat.Font.Name =  uwgNegociacion.DisplayLayout.HeaderStyleDefault.Font.Name;
+			workBook.Worksheets[0].Rows[fila].CellFormat.Font.Height =  Convert.ToInt32(uwgNegociacion.DisplayLayout.FrameStyle.Font.Size.Unit.Value)*20;
+			workBook.Worksheets[0].Rows[fila].Cells[columnaEtiquetas].CellFormat.Font.Color = uwgNegociacion.DisplayLayout.HeaderStyleDefault.ForeColor;
+			workBook.Worksheets[0].Rows[fila].Cells[columnaEtiquetas].CellFormat.Font.Bold = ExcelDefaultableBoolean.True;
+			workBook.Worksheets[0].Rows[fila].Cells[columnaEtiquetas].Value = new Mensaje.MensajeAplicacion().ObtenerEtiqueta("CuadroSubasta.aspx.Exportacion.FechaCierre");
+			workBook.Worksheets[0].Rows[fila].Cells[columnaDatos].Value = filaSubasta.FECHACIERRE.ToString(parametrosFormato.FormatoFechaUsuario);
+			fila++;
+			workBook.Worksheets[0].Rows[fila].CellFormat.Font.Name =  uwgNegociacion.DisplayLayout.HeaderStyleDefault.Font.Name;
+			workBook.Worksheets[0].Rows[fila].CellFormat.Font.Height =  Convert.ToInt32(uwgNegociacion.DisplayLayout.FrameStyle.Font.Size.Unit.Value)*20;
+			workBook.Worksheets[0].Rows[fila].Cells[columnaEtiquetas].CellFormat.Font.Color = uwgNegociacion.DisplayLayout.HeaderStyleDefault.ForeColor;
+			workBook.Worksheets[0].Rows[fila].Cells[columnaEtiquetas].CellFormat.Font.Bold = ExcelDefaultableBoolean.True;
+			workBook.Worksheets[0].Rows[fila].Cells[columnaEtiquetas].Value = new Mensaje.MensajeAplicacion().ObtenerEtiqueta("CuadroSubasta.aspx.Exportacion.MontoColocar");
+			string sMontoColocar;
+			decimal montoColocado = 0;
+			if(filaSubasta.ESTADOSUBASTA == ConstantesBolsa.SUBASTA_ESTADO_NEGOCIADA || filaSubasta.ESTADOSUBASTA == ConstantesBolsa.SUBASTA_ESTADO_CERRADA)
+			{
+					montoColocado = filaSubasta.MONTOCOLOCADO;
+				sMontoColocar = datosEstructuralesDataSet.SER_MONEDA.FindByCODMONEDA(filaSubasta.CODMONEDA).SIGLA + " " + montoColocado.ToString(parametrosFormato.FormatoMontoOPR);
+			}
+			else
+			{
+					montoColocado = filaSubasta.MONTOACOLOCAR;
+				sMontoColocar = datosEstructuralesDataSet.SER_MONEDA.FindByCODMONEDA(filaSubasta.CODMONEDA).SIGLA + " " + montoColocado.ToString(parametrosFormato.FormatoMontoOPR);
+			}
+			workBook.Worksheets[0].Rows[fila].Cells[columnaDatos].Value = sMontoColocar;
+			fila++;
+			if(!filaSubasta.IsTASACORTENull())
+			{
+				workBook.Worksheets[0].Rows[fila].CellFormat.Font.Name =  uwgNegociacion.DisplayLayout.HeaderStyleDefault.Font.Name;
+				workBook.Worksheets[0].Rows[fila].CellFormat.Font.Height =  Convert.ToInt32(uwgNegociacion.DisplayLayout.FrameStyle.Font.Size.Unit.Value)*20;
+				workBook.Worksheets[0].Rows[fila].Cells[columnaEtiquetas].CellFormat.Font.Color = uwgNegociacion.DisplayLayout.HeaderStyleDefault.ForeColor;
+				workBook.Worksheets[0].Rows[fila].Cells[columnaEtiquetas].CellFormat.Font.Bold = ExcelDefaultableBoolean.True;
+				workBook.Worksheets[0].Rows[fila].Cells[columnaEtiquetas].Value = new Mensaje.MensajeAplicacion().ObtenerEtiqueta("CuadroSubasta.aspx.Exportacion.TasaCorte");
+				workBook.Worksheets[0].Rows[fila].Cells[columnaDatos].Value = (filaSubasta.TASACORTE*100).ToString(parametrosFormato.FormatoTasaSubasta)+"%";
+			}
+
+			#region código añadido para generar totales
+			//Zona Para generar Totales, el código de aqui es necesario para generarl los totales
+			//Obteniendo datos para totales
+			Subasta subasta = new Subasta(CurrentInstanceName);
+
+			decimal[,] matrizMontos = subasta.GenerarMatrizMontos(codigoSubasta);
+			decimal[,] matrizAdjudicaciones = null;
+
+			decimal cantidadfull=0;
+			if(indiceTasaCorte >= 0)
+			{
+				int filaTotales			= matrizMontos.GetUpperBound(0);
+				if (indiceTasaCorte>0)
+				{
+					cantidadfull=matrizMontos[filaTotales, indiceTasaCorte-1];
+				}
+				decimal porcentajeProrrateo	= subasta.ObtenerPorcentajeProrrateo(matrizMontos[filaTotales, indiceTasaCorte], cantidadfull, montoColocado);
+				decimal valorNominal = filaValor.VALORNOMINAL;
+				matrizAdjudicaciones = subasta.GenerarMatrizAdjudicaciones(matrizMontos, indiceTasaCorte, porcentajeProrrateo, valorNominal,montoColocado);
+			}
+
+			//*******************
+			#endregion
+
+			int numOrdenes	= new Orden(CurrentInstanceName).ObtenerPorCodigoSubastaParaNegociacion(codigoSubasta).SER_ORDENSUBASTA.Rows.Count;
+			int numTasas = new Orden(CurrentInstanceName).GenerarFichaTasas(codigoSubasta,false).SER_ORDENSUBASTADETALLE.Rows.Count;
+
+			//TODO en la exportacion se deben mostrar los totales
+			workBook.Worksheets[0].Rows[fila+uwgNegociacion.Rows.Count+3].CellFormat.Font.Name =  uwgNegociacion.DisplayLayout.HeaderStyleDefault.Font.Name;
+			workBook.Worksheets[0].Rows[fila+uwgNegociacion.Rows.Count+3].CellFormat.Font.Height =  Convert.ToInt32(uwgNegociacion.DisplayLayout.FrameStyle.Font.Size.Unit.Value)*20;
+			workBook.Worksheets[0].Rows[fila+uwgNegociacion.Rows.Count+3].CellFormat.Font.Bold = ExcelDefaultableBoolean.True;
+			workBook.Worksheets[0].Rows[fila+uwgNegociacion.Rows.Count+3].CellFormat.Font.Color = uwgNegociacion.DisplayLayout.HeaderStyleDefault.ForeColor;
+			workBook.Worksheets[0].Rows[fila+uwgNegociacion.Rows.Count+3].Cells[columnaEtiquetas].Value = "TOTALES";
+			for (int columna = 0; columna < numTasas; columna++)
+			{
+				workBook.Worksheets[0].Rows[fila+uwgNegociacion.Rows.Count+3].Cells[columnaDatos+columna].Value = matrizMontos[numOrdenes,columna];
+			}
+			if(matrizAdjudicaciones!=null)
+			{
+				for (int columna = 0; columna < matrizAdjudicaciones.GetLength(1); columna++)
+				{
+					workBook.Worksheets[0].Rows[fila+uwgNegociacion.Rows.Count+3].Cells[columnaDatos+numTasas+columna].Value = matrizAdjudicaciones[numOrdenes,columna];
+				}
+			}
+			return workBook;
+
+		}
+		#endregion
+
+		#region Obtener SiglaMoneda
+		public static string ObtenerSiglaMoneda(int codigoMoneda)
+		{
+			string siglaMoneda = String.Empty;
+			DatosEstructuralesDataSet datosEstructuralesDataSet = new DatosEstructurales(CurrentInstanceName).ObtenerDatosEstructurales();
+
+			DatosEstructuralesDataSet.SER_MONEDARow filaMoneda =  datosEstructuralesDataSet.SER_MONEDA.FindByCODMONEDA(codigoMoneda);
+			if (filaMoneda != null)
+			{
+				siglaMoneda = filaMoneda.SIGLA;
+			}
+			return siglaMoneda;
+		}
+		#endregion
+
+		#region Generales
+		public bool CompruebaFormatoFecha(string fecha, string formatoFecha)
+		{
+			bool resultado = true;
+
+			try
+			{
+				if (fecha.Trim().Length != 10)
+				{
+					return false;
+				}
+
+				DateTimeFormatInfo dtfi = new DateTimeFormatInfo();
+				dtfi.ShortDatePattern = formatoFecha;
+				dtfi.DateSeparator = "/";
+				DateTime fechaOperacionDateTime = DateTime.MinValue;
+				try
+				{
+					fechaOperacionDateTime = Convert.ToDateTime(fecha, dtfi);
+				}
+				catch
+				{
+					return false;
+				}
+			}
+			catch(Exception ex)
+			{
+				bool rethrow = ExceptionPolicy.HandleException(ex, ConstantesConfiguracion.EXCEPCION_POLITICA_LOGICA_NEGOCIO);
+				if (rethrow) throw;
+			}
+			return resultado;
+		}
+		#endregion
+	}
+}

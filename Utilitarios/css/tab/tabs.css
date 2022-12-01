@@ -1,0 +1,88 @@
+﻿.navBarsActive {
+    padding: 0 0 0 5px;
+    cursor: default;
+    /*background: url(/PrincipalUI/Framework/Imagenes/bkgd-h-tab-002.gif) no-repeat left top;*/
+    background: url('../../../framework/imagenes/bkgd-h-tab-002.gif') no-repeat left top;
+    height: 25px;
+    background-color: ghostwhite;
+    background-image: url('../../imagenes/ig_tab_winxps1.gif');
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: -1px;
+    border-left: #949c9c solid 1px;
+    border-right: #949c9c solid 1px;
+    border-top: orange solid 1px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-bottom: none !important;
+}
+
+.navBars {
+    padding: 0 0 0 5px;
+    cursor: pointer;
+    background: url('../../../framework/imagenes/bkgd-h-tab-001.gif') no-repeat left top;
+    background-image: url("../../imagenes/ig_tab_winXPs3.gif");
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: -1px;
+    border-left: #949c9c solid 1px;
+    border-right: #949c9c solid 1px;
+    border-top: #949c9c solid 1px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    height: 22px;
+}
+
+.divNavBar {
+    left: 10px;
+    position: absolute;
+    top: 5px;
+}
+
+#ContentPanel {
+    top: 0px !important;
+    padding-top: 10px !important;
+}
+
+.ratio {
+    border-color: white;
+    border-style: ridge;
+    background-color: white;
+    padding-top: 5px !important;
+    margin-left: -4px !important;
+    margin-top: 2rem;
+    height: 90%;
+}
+.navBars:hover {
+    background-image: url("../../imagenes/ig_tab_winXPs2.gif");
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: -1px;
+    border-left: #949c9c solid 1px;
+    border-right: #949c9c solid 1px;
+    border-top: orange solid 1px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    height: 22px;
+}
+.nav-link {
+    font-family: 'Microsoft Sans Serif';
+    color: black;
+    font-size: 8pt;
+    border: none !important;
+    padding: 0.4rem 1rem 0.4rem 1rem;
+}
+
+.nav-link:hover {
+    border: none;
+    isolation: initial;
+    color: black;
+}
+
+.nav-link:focus {
+    color: black;
+}
+
+.nav-item {
+    border-bottom: #949c9c solid 1px;
+}
