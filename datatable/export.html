@@ -18,9 +18,7 @@
     <script src="script.js"></script>
     <script>
         $(document).ready(function () {
-            $('#example').DataTable({
-                data: personas,
-                columns: [
+            let columnsPersonas = [
                     { data: "id", title: 'Id' },
                     { data: "nombre", title: 'Nombre' },
                     { data: "apellido", title: 'Apellido' },
@@ -28,20 +26,11 @@
                     { data: "sexo", title: 'Sexo' },
                     { data: "sueldo", title: 'Sueldo' },
                     { data: "hobbies", title: 'Hobbbies' },
-                ],
-            });
+                ];
 
             let datatablePersonas = new BaseDataTable('#personas', {
                 data: personas,
-                columns: [
-                    { data: "id", title: 'Id' },
-                    { data: "nombre", title: 'Nombre' },
-                    { data: "apellido", title: 'Apellido' },
-                    { data: "edad", title: 'Edad' },
-                    { data: "sexo", title: 'Sexo' },
-                    { data: "sueldo", title: 'Sueldo' },
-                    { data: "hobbies", title: 'Hobbbies' },
-                ],
+                columns: columnsPersonas,
                 scrollY: "100px",
                 moveTo: "destino",
             })
