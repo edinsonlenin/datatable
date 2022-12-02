@@ -96,13 +96,7 @@ let styleUwg = `<styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheet
             <diagonal/>
         </border>
     </borders><cellStyleXfs count="1">    
-    <xf numFmtId="0" fontId="0" fillId="0" borderId="0"/>    
-    </cellStyleXfs>    
-    <cellXfs count="64">
-    
-    
-    
-    
+    <xf numFmtId="0" fontId="0" fillId="0" borderId="0"/>    </cellStyleXfs>  <cellXfs count="94">
     <xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/>
     <xf numFmtId="0" fontId="2" fillId="4" borderId="1" xfId="0" applyNumberFormat="1" applyFont="1" applyFill="1" applyBorder="1" applyProtection="1">    <alignment horizontal="center"/></xf>    
     <xf numFmtId="0" fontId="2" fillId="4" borderId="1" xfId="0" applyNumberFormat="1" applyFont="1" applyFill="1" applyBorder="1" applyProtection="1">    <alignment horizontal="left"/></xf>

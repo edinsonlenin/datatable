@@ -1,17 +1,17 @@
 var personas = [
     {
-        id: 1, "nombre": "Edinson", "apellido": "Santa Cruz", "edad":"44", "sexo":"Hombre", "sueldo":"6500.55", "hobbies":"futbol, basket",
+        id: "1", "nombre": "Edinson", "apellido": "Santa Cruz", "edad":"44", "sexo":"Hombre", "sueldo":"6500.55", "hobbies":"futbol, basket",
         "Detalle":[
-            {idDetalle:1, id: 1,"actividad":"trabajar","duracion":"8.35","esfuerzo":"regular"}, 
-            {idDetalle:2, id: 1,"actividad":"jugar","duracion":"1.66","esfuerzo":"bajo"}, 
-            {idDetalle:3, id: 1,"actividad":"limpiar","duracion":"0.556","esfuerzo":"bajo"}, 
+            {idDetalle:1, id: "1","actividad":"trabajar","duracion":"8.35","esfuerzo":"regular"}, 
+            {idDetalle:2, id: "1","actividad":"jugar","duracion":"1.66","esfuerzo":"bajo"}, 
+            {idDetalle:3, id: "1","actividad":"limpiar","duracion":"0.556","esfuerzo":"bajo"}, 
         ]
     },
     {
-        id: 2, "nombre": "Silvia", "apellido": "Alvaro", "edad":"44", "sexo":"Mujer", "sueldo":"7800.778", "hobbies":"ping pong, manualidades",
+        id: "2", "nombre": "Silvia", "apellido": "Alvaro", "edad":"44", "sexo":"Mujer", "sueldo":"7800.778", "hobbies":"ping pong, manualidades",
         "Detalle":[
-            {idDetalle:4, id: 2,"actividad":"arreglar","duracion":"8.35","esfuerzo":"regular"}, 
-            {idDetalle:5, id: 2,"actividad":"orar","duracion":"1.66","esfuerzo":"bajo"}, 
+            {idDetalle:4, id: "2","actividad":"arreglar","duracion":"8.35","esfuerzo":"regular"}, 
+            {idDetalle:5, id: "2","actividad":"orar","duracion":"1.66","esfuerzo":"bajo"}, 
         ]
     },
 ];
