@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <LINK href="../Utilitarios/seriva-stiles.css" type="text/css" rel="stylesheet">
+    <SCRIPT src="../Utilitarios/JScript/jsUtil.js" type="text/javascript"></SCRIPT>
+    <link href="../Utilitarios/cliente.css" type="text/css" rel="stylesheet" />
+    <link href="../src/css/custom.datatable.css" rel="stylesheet" />
+
+    <script type="text/javascript" src="../Scripts/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="../src/assets/handlebars/js/handlebars.min.js"></script>
+    <script type="text/javascript" src="../src/assets/dataTable/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="../src/assets/dataTable/resize.datatable.js"></script>
+    <script type="text/javascript" src="../src/assets/dataTable/dataTables.select.min.js"></script>
+    <script type="text/javascript" src="../src/js/CustomDataTable.js"></script>
+    <script type="text/javascript" src="../src/js/styleUwg.js"></script>
+
+    <!--referencias para exportación a excel -->
+    <link href="../src/assets/dataTable/buttons.dataTables.min.css" rel="stylesheet" />
+    <style type="text/css">
+        table tbody tr td[colspan="8"] {
+            padding-left: 33px !important;
+            padding-top: 0rem !important;
+            padding-right: 0rem !important;
+        }
+
+        table tr td[colspan="7"] {
+            padding-left: 2.1rem !important;
+            padding-top: 0rem !important;
+            padding-right: 0rem !important;
+        }
+
+        table.dataTable {
+            margin: 0 !important;
+        }
+    </style>
+
+    <script type="text/javascript" src="../src/assets/dataTable/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="../src/assets/dataTable/jszip.min.js"></script>
+    <script type="text/javascript" src="../src/assets/dataTable/buttons.html5.min.js"></script>
+
+    <link href="../src/assets/Bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="script.js"></script>
+    <script>
+        let columns;
+        $(document).ready(function () {
+            let columnsPersonas = [
+                { class: 'dt-control', width: '33px' },
+                { data: "id", title: 'Id', class: "text-center", visible: false },
+                { data: "nombre", title: 'Nombre', class: "text-start" },
+                { data: "apellido", title: 'Apellido', class: "text-start" },
+                { data: "edad", title: 'Edad', class: "text-end" },
+                { data: "sexo", title: 'Sexo', class: "text-center" },
+                { data: "sueldo", title: 'Sueldo', class: "text-end" },
+                { data: "hobbies", title: 'Hobbbies', class: "text-start" },
+            ];
+
+            let columnsPersonasDetalle = [
+                { data: "actividad", title: 'Actividad', class: "text-start" },
+                { data: "duracion", title: 'Duracion', class: "text-end" },
+                { data: "esfuerzo", title: 'Esfuerzo', class: "text-center" },
+            ];
+
+            columns = columnsPersonas.map((x, y) => { return { y, x } }).filter((x, y) => (x.x.visible == undefined || x.x.visible || x.x.export) && y > 0).map(x => x.y);
+            console.log(columns)
+            let align_header = 'start';
+
+            let tablePersonas = new BaseDataTable('#tablePersonas', {
+                data: personas,
+                columns: columnsPersonas,
+                select: {
+                    style: 'os',
+                    selector: 'td:not(.dt-control)',
+                    toggleable: false
+                },
+                columnDefs: [{
+                    "defaultContent": "",
+                    "targets": "_all"
+                }],
+                rowId: 'id',
+                renderRowExpanded: async (rowData) => {
+                    var source = document.getElementById("nested-table-template-01").innerHTML;
+                    var template = Handlebars.compile(source);
+                    var html = template(rowData);
+                    return html;
+                },
+                onRowExpand: async ($row) => {
+                    let options = {
+                        columns: columnsPersonasDetalle,
+                        rowId: "id",
+                        parentTable: tablePersonas
+                    };
+                    let tableHtml = $($row.child()).find("table");
+                    let nestedDataTable = new BaseDataTable(tableHtml, options);
+                    nestedDataTable.init();
+                    return nestedDataTable;
+                },
+                dom: 'B',
+                buttons: [
+                    {
+                        extend: 'excelHtml5',
+                        title: '',
+                        exportOptions: {
+                            columns: columns
+                        },
+                        customize: function (xlsx) {
+                            var style = xlsx.xl['styles.xml'];
+                            let s = '1';
+                            $("styleSheet", style).replaceWith(styleUwg);
+
+                            var sheet = xlsx.xl.worksheets['sheet1.xml'];
+                            var sheetPr = `<sheetPr><outlinePr summaryBelow="0"/></sheetPr>`;
+                            var indice = 1;
+                            $("worksheet", sheet).prepend(sheetPr);
+                            $("sheetFormatPr", sheet).attr("outlineLevelRow", "1");
+
+                            $('row', sheet).each(function (i, element) {
+                                s = '1';
+                                if (i > 0) {
+                                    $(element).find('c').each(function (j) {
+                                        $(this).removeAttr('s');
+                                        let position = columns[j];
+                                        if (columnsPersonas[position].class == 'text-center')
+                                            $(this).attr('s', 4);
+                                        else if (columnsPersonas[position].class == 'text-start')
+                                            $(this).attr('s', 5);
+                                        else if (columnsPersonas[position].class == 'text-end')
+                                            $(this).attr('s', 6);
+                                        else
+                                            $(this).attr('s', 5);
+                                    })
+                                }
+                                else {
+                                    if (align_header === 'center')
+                                        s = '1'
+                                    else if (align_header === 'start')
+                                        s = '2'
+                                    else if (align_header === 'end')
+                                        s = '3'
+
+                                    $(element).find('c').each(function () {
+                                        $(this).attr('s', s);
+                                    })
+                                }
+
+                            })
+                        }
+                    }
+                ]
+            })
+            tablePersonas.init();
+
+
+        });
+    </script>
+</head>
+
+<body>
+    <form>
+        <div class="container-fluid">
+            <table>
+                <tr>
+                    <td>
+                        algun texto
+                    </td>
+                </tr>
+            </table>
+            <div class="container-fluid">
+
+                <table id="tablePersonas" class="cell-border tabla-general stripe  dataTable no-footer" width="80%"
+                    height="60%"></table>
+            </div>
+        </div>
+    </form>
+
+    <script id="nested-table-template-01" type="text/x-handlebars-template">
+        <table class="cell-border tabla-general stripe hijos" width="50%" id='row_expanded_{{id}}'>
+            <thead>
+                <tr>
+                    <th width="50%"></th>
+                    <th width="20%"></th>
+                    <th width="30%"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{# each Detalle}}
+                    <tr id="{{idDetalle}}" data-parentid="{{id}}">
+                        <td>{{actividad}}</td>
+                        <td>{{duracion}}</td>
+                        <td>{{esfuerzo}}</td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </script>
+</body>
+
+</html>
