@@ -53,11 +53,11 @@
         $(document).ready(function () {
             let tablaColumnas = [
                 { class: 'dt-control', width: '33px', export:false },
-                { data: "id", title: 'Id', class: "text-center" },
+                { data: "id", title: 'Id', class: "text-center", visible:false, export:true },
                 { data: "nombre", title: 'Nombre', class: "text-start" },
                 { data: "apellido", title: 'Apellido', class: "text-start" },
                 { data: "edad", title: 'Edad', class: "text-end" },
-                { data: "sexo", title: 'Sexo', class: "text-center" },
+                { data: "sexo", title: 'Sexo', class: "text-center", visible:false, export:true },
                 { data: "sueldo", title: 'Sueldo', class: "text-end" },
                 { data: "hobbies", title: 'Hobbbies', class: "text-start" },
             ];
@@ -86,9 +86,9 @@
                 }],
                 rowId: 'id',
                 renderRowExpanded: async (rowData) => {
-                    var source = document.getElementById("nested-table-template-01").innerHTML;
-                    var template = Handlebars.compile(source);
-                    var html = template(rowData);
+                    let source = document.getElementById("nested-table-template-01").innerHTML;
+                    let template = Handlebars.compile(source);
+                    let html = template(rowData);
                     return html;
                 },
                 onRowExpand: async ($row) => {
@@ -111,18 +111,25 @@
                             columns: columns
                         },
                         customizeData: function (data) {
-                            let key = "id";
+                            /*let key1 = "nombre";
+                            let key2 = "apellido";
+                            let indice1 = 0;
+                            let indice2 = 1;                            
+                            let filtro = `x[key1].trim() == e[indice1].trim() &&
+                                          x[key2].trim() == e[indice2].trim()`;*/
+                            let filtro = `x['id'].trim() == e[0].trim()`;
                             let subchild = [...data.body];
                             let secondTable = ['', ...tablaColumnasDetalle.map(x => x.title)];
                             let columnas = tablaColumnasDetalle.map(x => x.data)
                             let numberRow = 0;
                             subchild.forEach((e, i) => {
-                                let filas = tablaData.find(x => x[key].trim() == e[0].trim()).Detalle;
+                                //let filas = tablaData.find(x => x[key].trim() == e[0].trim()).Detalle;
+                                let filas = tablaData.find(x => eval(filtro)).Detalle;
                                 ++numberRow;
                                 parentRowsIndex.push(numberRow);
                                 filas.forEach((el, idx) => {
                                     console.log(el);
-                                    var detalle = [""];
+                                    let detalle = [""];
                                    Object.entries(el).forEach(([key, value]) => {
                                         if (columnas.includes(key))
                                             detalle.push(value);
@@ -137,13 +144,13 @@
                             })
                         },
                         customize: function (xlsx) {
-                            var style = xlsx.xl['styles.xml'];
+                            let style = xlsx.xl['styles.xml'];
                             let s = '1';
                             $("styleSheet", style).replaceWith(styleUwg);
 
-                            var sheet = xlsx.xl.worksheets['sheet1.xml'];
-                            var sheetPr = `<sheetPr><outlinePr summaryBelow="0"/></sheetPr>`;
-                            var indice = 1;
+                            let sheet = xlsx.xl.worksheets['sheet1.xml'];
+                            let sheetPr = `<sheetPr><outlinePr summaryBelow="0"/></sheetPr>`;
+                            let indice = 1;
                             $("worksheet", sheet).prepend(sheetPr);
                             $("sheetFormatPr", sheet).attr("outlineLevelRow", "1");
 
