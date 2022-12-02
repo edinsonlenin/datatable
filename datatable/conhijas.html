@@ -50,59 +50,8 @@
         let secondRowsIndex = [0];
         let tablaColumnasExportar;
         let tablaData = personas;
-        $(document).ready(function () {
-            let tablaColumnas = [
-                { class: 'amarillo dt-control', width: '33px', export:false },
-                { data: "id", title: 'Id', class: "text-center", visible:false, export:true },
-                { data: "nombre", title: 'Nombre', class: "text-start" },
-                { data: "apellido", title: 'Apellido', class: "text-start" },
-                { data: "edad", title: 'Edad', class: "text-end" },
-                { data: "sexo", title: 'Sexo', class: "text-center", visible:false, export:true },
-                { data: "sueldo", title: 'Sueldo', class: "text-end" },
-                { data: "hobbies", title: 'Hobbbies', class: "text-start" },
-            ];
-
-            let tablaColumnasDetalle = [
-                { data: "actividad", title: 'Actividad', class: "text-start" },
-                { data: "duracion", title: 'Duracion', class: "text-end" },
-                { data: "esfuerzo", title: 'Esfuerzo', class: "text-center" },
-            ];
-
-            let tablaColumnasExportar = tablaColumnas.map((x, y) => { return { y, x } }).filter((x, y) => ((x.x.visible == undefined || x.x.visible || x.x.export)&&(x.x.export == undefined || x.x.export))).map(x => x.y);
-            let align_header = 'start';
-
-            let tabletablaColumnas = new BaseDataTable('#tabletablaColumnas', {
-                data: tablaData,
-                columns: tablaColumnas,
-                select: {
-                    style: 'os',
-                    selector: 'td:not(.dt-control)',
-                    toggleable: false
-                },
-                columnDefs: [{
-                    "defaultContent": "",
-                    "targets": "_all"
-                }],
-                rowId: 'id',
-                renderRowExpanded: async (rowData) => {
-                    let source = document.getElementById("nested-table-template-01").innerHTML;
-                    let template = Handlebars.compile(source);
-                    let html = template(rowData);
-                    return html;
-                },
-                onRowExpand: async ($row) => {
-                    let options = {
-                        columns: tablaColumnasDetalle,
-                        rowId: "id",
-                        parentTable: tabletablaColumnas
-                    };
-                    let tableHtml = $($row.child()).find("table");
-                    let nestedDataTable = new BaseDataTable(tableHtml, options);
-                    nestedDataTable.init();
-                    return nestedDataTable;
-                },
-                dom: 'B',
-                buttons: [
+        function buttons(tabla, filtro){
+            return [
                     {
                         extend: 'excelHtml5',
                         title: '',
@@ -110,22 +59,13 @@
                             columns: tablaColumnasExportar
                         },
                         customizeData: function (data) {
-                            let tabla = "tabla";
                             let tcd = eval(`${tabla}ColumnasDetalle`);
                             let datos = eval(`${tabla}Data`);
-                            /*let key1 = "nombre";
-                            let key2 = "apellido";
-                            let indice1 = 0;
-                            let indice2 = 1;                            
-                            let filtro = `x[key1].trim() == e[indice1].trim() &&
-                                          x[key2].trim() == e[indice2].trim()`;*/
-                            let filtro = `x['id'].trim() == e[0].trim()`;
                             let subchild = [...data.body];
                             let secondTable = ['', ...tcd.map(x => x.title)];
                             let columnas = tcd.map(x => x.data)
                             let numberRow = 0;
                             subchild.forEach((e, i) => {
-                                //let filas = tablaData.find(x => x[key].trim() == e[0].trim()).Detalle;
                                 let filas = datos.find(x => eval(filtro)).Detalle;
                                 ++numberRow;
                                 parentRowsIndex.push(numberRow);
@@ -145,7 +85,6 @@
                             })
                         },
                         customize: function (xlsx) {
-                            let tabla = "tabla";
                             let tc = eval(`${tabla}Columnas`);
                             let tce = eval(`${tabla}ColumnasExportar`);
                             let tcd = eval(`${tabla}ColumnasDetalle`);
@@ -209,7 +148,68 @@
                             })
                         }
                     }
-                ]
+                ];
+        }
+        $(document).ready(function () {
+            /*let key1 = "nombre";
+            let key2 = "apellido";
+            let indice1 = 0;
+            let indice2 = 1;                            
+            let filtro = `x[key1].trim() == e[indice1].trim() &&
+                            x[key2].trim() == e[indice2].trim()`;*/
+            let filtro = `x['id'].trim() == e[0].trim()`;
+            let tablaColumnas = [
+                { class: 'amarillo dt-control', width: '33px', export:false },
+                { data: "id", title: 'Id', class: "text-center", visible:false, export:true },
+                { data: "nombre", title: 'Nombre', class: "text-start" },
+                { data: "apellido", title: 'Apellido', class: "text-start" },
+                { data: "edad", title: 'Edad', class: "text-end" },
+                { data: "sexo", title: 'Sexo', class: "text-center", visible:false, export:true },
+                { data: "sueldo", title: 'Sueldo', class: "text-end" },
+                { data: "hobbies", title: 'Hobbbies', class: "text-start" },
+            ];
+
+            let tablaColumnasDetalle = [
+                { data: "actividad", title: 'Actividad', class: "text-start" },
+                { data: "duracion", title: 'Duracion', class: "text-end" },
+                { data: "esfuerzo", title: 'Esfuerzo', class: "text-center" },
+            ];
+
+            let tablaColumnasExportar = tablaColumnas.map((x, y) => { return { y, x } }).filter((x, y) => ((x.x.visible == undefined || x.x.visible || x.x.export)&&(x.x.export == undefined || x.x.export))).map(x => x.y);
+            let align_header = 'start';
+
+            let tabletablaColumnas = new BaseDataTable('#tabletablaColumnas', {
+                data: tablaData,
+                columns: tablaColumnas,
+                select: {
+                    style: 'os',
+                    selector: 'td:not(.dt-control)',
+                    toggleable: false
+                },
+                columnDefs: [{
+                    "defaultContent": "",
+                    "targets": "_all"
+                }],
+                rowId: 'id',
+                renderRowExpanded: async (rowData) => {
+                    let source = document.getElementById("nested-table-template-01").innerHTML;
+                    let template = Handlebars.compile(source);
+                    let html = template(rowData);
+                    return html;
+                },
+                onRowExpand: async ($row) => {
+                    let options = {
+                        columns: tablaColumnasDetalle,
+                        rowId: "id",
+                        parentTable: tabletablaColumnas
+                    };
+                    let tableHtml = $($row.child()).find("table");
+                    let nestedDataTable = new BaseDataTable(tableHtml, options);
+                    nestedDataTable.init();
+                    return nestedDataTable;
+                },
+                dom: 'B',
+                buttons: buttons(tabla, filtro)
             })
             tabletablaColumnas.init();
 
