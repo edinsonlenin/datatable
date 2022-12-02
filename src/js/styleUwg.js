@@ -10,7 +10,7 @@ let styleUwg = `<styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheet
             <sz val="10"/>
             <color indexed="13"/>
             <name val="Arial"/>
-            </font>
+        </font>
         <font>
             <sz val="8"/>
             <color indexed="13"/>
