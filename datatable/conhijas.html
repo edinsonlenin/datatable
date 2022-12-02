@@ -48,7 +48,7 @@
     <script>
         let parentRowsIndex = [0];
         let secondRowsIndex = [0];
-        let columns;
+        let tablaColumnasExportar;
         let tablaData = personas;
         $(document).ready(function () {
             let tablaColumnas = [
@@ -68,8 +68,7 @@
                 { data: "esfuerzo", title: 'Esfuerzo', class: "text-center" },
             ];
 
-            let columns = tablaColumnas.map((x, y) => { return { y, x } }).filter((x, y) => ((x.x.visible == undefined || x.x.visible || x.x.export)&&(x.x.export == undefined || x.x.export))).map(x => x.y);
-            console.log(columns)
+            let tablaColumnasExportar = tablaColumnas.map((x, y) => { return { y, x } }).filter((x, y) => ((x.x.visible == undefined || x.x.visible || x.x.export)&&(x.x.export == undefined || x.x.export))).map(x => x.y);
             let align_header = 'start';
 
             let tabletablaColumnas = new BaseDataTable('#tabletablaColumnas', {
@@ -108,9 +107,12 @@
                         extend: 'excelHtml5',
                         title: '',
                         exportOptions: {
-                            columns: columns
+                            columns: tablaColumnasExportar
                         },
                         customizeData: function (data) {
+                            let tabla = "tabla";
+                            let tcd = eval(`${tabla}ColumnasDetalle`);
+                            let datos = eval(`${tabla}Data`);
                             /*let key1 = "nombre";
                             let key2 = "apellido";
                             let indice1 = 0;
@@ -119,18 +121,17 @@
                                           x[key2].trim() == e[indice2].trim()`;*/
                             let filtro = `x['id'].trim() == e[0].trim()`;
                             let subchild = [...data.body];
-                            let secondTable = ['', ...tablaColumnasDetalle.map(x => x.title)];
-                            let columnas = tablaColumnasDetalle.map(x => x.data)
+                            let secondTable = ['', ...tcd.map(x => x.title)];
+                            let columnas = tcd.map(x => x.data)
                             let numberRow = 0;
                             subchild.forEach((e, i) => {
                                 //let filas = tablaData.find(x => x[key].trim() == e[0].trim()).Detalle;
-                                let filas = tablaData.find(x => eval(filtro)).Detalle;
+                                let filas = datos.find(x => eval(filtro)).Detalle;
                                 ++numberRow;
                                 parentRowsIndex.push(numberRow);
                                 filas.forEach((el, idx) => {
-                                    console.log(el);
                                     let detalle = [""];
-                                   Object.entries(el).forEach(([key, value]) => {
+                                    Object.entries(el).forEach(([key, value]) => {
                                         if (columnas.includes(key))
                                             detalle.push(value);
                                         console.log(detalle);
@@ -144,6 +145,10 @@
                             })
                         },
                         customize: function (xlsx) {
+                            let tabla = "tabla";
+                            let tc = eval(`${tabla}Columnas`);
+                            let tce = eval(`${tabla}ColumnasExportar`);
+                            let tcd = eval(`${tabla}ColumnasDetalle`);
                             let style = xlsx.xl['styles.xml'];
                             let s = '1';
                             $("styleSheet", style).replaceWith(styleUwg);
@@ -163,13 +168,13 @@
                                 if (!secondRowsIndex.includes(i)) {
 									if (parentRowsIndex.includes(i))
 										$(element).find('c').each(function (j) {
-                                        let position = columns[j];
+                                        let position = tce[j];
 											$(this).removeAttr('s');
-											if (tablaColumnas[position].class == 'text-center')
+											if (tc[position].class == 'text-center')
 												$(this).attr('s', 4);
-											else if (tablaColumnas[position].class == 'text-start')
+											else if (tc[position].class == 'text-start')
 												$(this).attr('s', 5);
-											else if (tablaColumnas[position].class == 'text-end')
+											else if (tc[position].class == 'text-end')
 												$(this).attr('s', 6);
 											else
 												$(this).attr('s', 5);
@@ -177,11 +182,11 @@
 									else
 										$(element).find('c').each(function (j) {
 											$(this).removeAttr('s');
-											if (tablaColumnasDetalle[j].class == 'text-center')
+											if (tcd[j].class == 'text-center')
 												$(this).attr('s', 4);
-											else if (tablaColumnasDetalle[j].class == 'text-start')
+											else if (tcd[j].class == 'text-start')
 												$(this).attr('s', 5);
-											else if (tablaColumnasDetalle[j].class == 'text-end')
+											else if (tcd[j].class == 'text-end')
 												$(this).attr('s', 6);
 											else
 												$(this).attr('s', 6);
