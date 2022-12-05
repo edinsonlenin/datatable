@@ -504,8 +504,22 @@ class EditableDataTable extends BaseDataTable {
         return $input;
     }
 }
-
-function buttons(tabla, filtro){
+function formatDefault(element){
+    let s = 4;
+    if (element.class == 'text-center')
+        s = 4;
+    else if (element.class == 'text-start')
+        s = 5;
+    else if (element.class == 'text-end')
+        s = 6;
+    return s;
+}
+function buttons(options){
+    let {tabla, filtro, align_header, formatData} = options;
+    if(align_header === undefined)
+        align_header = 'start';
+    if(formatData === undefined)
+        formatData = formatDefault;
     return [
             {
                 extend: 'excelHtml5',
@@ -550,6 +564,7 @@ function buttons(tabla, filtro){
                     let sheet = xlsx.xl.worksheets['sheet1.xml'];
                     let sheetPr = `<sheetPr><outlinePr summaryBelow="0"/></sheetPr>`;
                     let indice = 1;
+                    let position;
                     $("worksheet", sheet).prepend(sheetPr);
                     $("sheetFormatPr", sheet).attr("outlineLevelRow", "1");
 
@@ -562,28 +577,17 @@ function buttons(tabla, filtro){
                         if (!secondRowsIndex.includes(i)) {
                             if (parentRowsIndex.includes(i))
                                 $(element).find('c').each(function (j) {
-                                let position = tce[j];
+                                    position = tce[j];
                                     $(this).removeAttr('s');
-                                    if (tc[position].class == 'text-center')
-                                        $(this).attr('s', 4);
-                                    else if (tc[position].class == 'text-start')
-                                        $(this).attr('s', 5);
-                                    else if (tc[position].class == 'text-end')
-                                        $(this).attr('s', 6);
-                                    else
-                                        $(this).attr('s', 5);
+                                    s = formatData(tc[position]);
+                                    $(this).attr('s', s);           
+                                    
                                 })
                             else
                                 $(element).find('c').each(function (j) {
                                     $(this).removeAttr('s');
-                                    if (tcd[j].class == 'text-center')
-                                        $(this).attr('s', 4);
-                                    else if (tcd[j].class == 'text-start')
-                                        $(this).attr('s', 5);
-                                    else if (tcd[j].class == 'text-end')
-                                        $(this).attr('s', 6);
-                                    else
-                                        $(this).attr('s', 6);
+                                    s = formatData(tcd[j]);
+                                    $(this).attr('s', s); 
                                 })
                         }
                         else {
