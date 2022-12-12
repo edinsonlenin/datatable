@@ -20,7 +20,6 @@
     <script type="text/javascript" src="../src/js/styleUwg.js"></script>
 
     <!--referencias para exportación a excel -->
-    <link href="../src/assets/dataTable/buttons.dataTables.min.css" rel="stylesheet" />
     <style type="text/css">
         table tbody tr td[colspan="8"] {
             padding-left: 33px !important;
@@ -38,7 +37,7 @@
             margin: 0 !important;
         }
     </style>
-
+    <!--referencias para exportacion-->
     <script type="text/javascript" src="../src/assets/dataTable/dataTables.buttons.min.js"></script>
     <script type="text/javascript" src="../src/assets/dataTable/jszip.min.js"></script>
     <script type="text/javascript" src="../src/assets/dataTable/buttons.html5.min.js"></script>
@@ -48,7 +47,7 @@
     <script>
         $(document).ready(function () {
             let columnsPersonas = [
-                { data: "id", title: 'Id', class: "text-center", visible: false, export: true },
+                { data: "id", title: 'Id', class: "text-center", visible: false, export: false },
                 { data: "nombre", title: 'Nombre', class: "text-start" },
                 { data: "apellido", title: 'Apellido', class: "text-start" },
                 { data: "edad", title: 'Edad', class: "text-end" },
@@ -57,7 +56,7 @@
                 { data: "hobbies", title: 'Hobbbies', class: "text-start" },
             ];
 
-            let columns = columnsPersonas.map((x, y) => { return { y, x } }).filter((x, y) => ((x.x.visible == undefined || x.x.visible || x.x.export)&&(x.x.export == undefined || x.x.export))).map(x => x.y);
+            //let columns = columnsPersonas.map((x, y) => { return { y, x } }).filter((x, y) => ((x.x.visible == undefined || x.x.visible || x.x.export)&&(x.x.export == undefined || x.x.export))).map(x => x.y);
             let align_header = 'start';
 
             let tablePersonas = new BaseDataTable('#tablePersonas', {
@@ -68,53 +67,12 @@
                     "targets": "_all"
                 }],
                 dom: 'B',
-                buttons: [
-                    {
-                        extend: 'excelHtml5',
-                        title: '',
-                        exportOptions: {
-                            columns
-                        },
-                        customize: function (xlsx) {
-                            var style = xlsx.xl['styles.xml'];
-                            let s = '1';
-                            $("styleSheet", style).replaceWith(styleUwg);
+                buttons: buttons(
+                {
+                    columnas: columnsPersonas,
+                    datos:personasCompleto,
 
-                            var sheet = xlsx.xl.worksheets['sheet1.xml'];
-
-                            $('row', sheet).each(function (i, element) {
-                                s = '1';
-                                if (i > 0) {
-                                    $(element).find('c').each(function (j) {
-                                        $(this).removeAttr('s');
-                                        let position = columns[j];
-                                        if (columnsPersonas[position].class == 'text-center')
-                                            $(this).attr('s', 4);
-                                        else if (columnsPersonas[position].class == 'text-start')
-                                            $(this).attr('s', 5);
-                                        else if (columnsPersonas[position].class == 'text-end')
-                                            $(this).attr('s', 6);
-                                        else
-                                            $(this).attr('s', 35);
-                                    })
-                                }
-                                else {
-                                    if (align_header === 'center')
-                                        s = '1'
-                                    else if (align_header === 'start')
-                                        s = '2'
-                                    else if (align_header === 'end')
-                                        s = '3'
-
-                                    $(element).find('c').each(function () {
-                                        $(this).attr('s', s);
-                                    })
-                                }
-
-                            })
-                        }
-                    }
-                ]
+                })
             })
             tablePersonas.init();
 

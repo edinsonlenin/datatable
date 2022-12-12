@@ -295,3 +295,202 @@ let styleUwg = `<styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheet
     </ext>
     </extLst>
     </styleSheet>`;
+    let parentRowsIndex = [0];
+    let secondRowsIndex = [0];
+    let hojaDeEstilos;
+    function formatDefault(element){
+        let s = 4;
+        if (element.class == 'text-center')
+            s = 4;
+        else if (element.class == 'text-start')
+            s = 5;
+        else if (element.class == 'text-end')
+            s = 6;
+        return s;
+    }
+    function buttons(options){
+        let {tabla, filtro, alignHeader, formatData, columnas, columnasDetalle, datos, columnaDetalle} = options;
+        alignHeader = alignHeader ?? 'start';
+        columnaDetalle = columnaDetalle ?? 'Detalle';
+        formatData = formatData ?? formatDefault;
+        columnas = columnas ?? eval(`${tabla}Columnas`);
+        if(tabla)
+        {
+            columnasDetalle = columnasDetalle ?? eval(`${tabla}ColumnasDetalle`);
+            datos = datos ?? eval(`${tabla}Data`);
+        }
+        let columnasAux = columnas.map((x, y) => { return { y, x } }).filter((x, y) => ((x.x.visible == undefined || x.x.visible || x.x.export)&&(x.x.export == undefined || x.x.export)));
+        let columnasExportar = columnasAux.map(x => x.y);
+        let nombresColumnasExportar = columnasAux.map(x => x.x.data);
+        if(filtro)
+            filtro = filtro.reduce(function(prevVal,currVal,idx){
+                var indice;
+                indice = nombresColumnasExportar.indexOf(currVal);
+                return idx == 0 ? `x["${currVal}"].trim() == e[${indice}].trim()` : prevVal + ' && ' + `x["${currVal}"].trim() == e[${indice}].trim()`;
+            }, '')
+        
+        return [
+                {
+                    extend: 'excelHtml5',
+                    title: '',
+                    exportOptions: {
+                        columns: columnasExportar
+                    },
+                    customizeData: function (data) {
+                        let resultado='[';
+                        nombresColumnasExportar.forEach(x => resultado +=`x["${x}"],`)
+                        resultado = resultado.substring(0,resultado.length -1)+"]"
+
+                        data.body = datos.map(x=>eval(resultado));
+
+                        if(!columnasDetalle) return;
+                        let subchild = [...data.body];
+                        let secondTable = ['', ...columnasDetalle.map(x => x.title)];
+                        let columnas = columnasDetalle.map(x => x.data)
+                        let numberRow = 0;
+                        subchild.forEach((e, i) => {
+                            let filas = datos.find(x => eval(filtro))[columnaDetalle];
+                            ++numberRow;
+                            parentRowsIndex.push(numberRow);
+                            filas.forEach((el, idx) => {
+                                let detalle = [""];
+                                Object.entries(el).forEach(([key, value]) => {
+                                    if (columnas.includes(key))
+                                        detalle.push(value);
+                                    console.log(detalle);
+                                })
+                                data.body.splice(numberRow, null, secondTable);
+                                ++numberRow;
+                                secondRowsIndex.push(numberRow);
+                                data.body.splice(numberRow, null, detalle)
+                                ++numberRow;
+                            })
+                        })
+                    },
+                    customize: function (xlsx) {
+                        
+                        let style = xlsx.xl['styles.xml'];
+                        hojaDeEstilos = style;
+                        let s = '1';
+                        $("styleSheet", style).replaceWith(styleUwg);
+    
+                        let sheet = xlsx.xl.worksheets['sheet1.xml'];
+                        let sheetPr = `<sheetPr><outlinePr summaryBelow="0"/></sheetPr>`;
+                        let indice = 1;
+                        let position;
+                        $("worksheet", sheet).prepend(sheetPr);
+                        if(columnasDetalle)
+                            $("sheetFormatPr", sheet).attr("outlineLevelRow", "1");
+    
+                        $('row', sheet).each(function (i, element) {
+                            if (!parentRowsIndex.includes(i) && columnasDetalle) {
+                                $(element).attr('outlineLevel', '1');
+                                $(element).attr('hidden', '1');
+                            }
+                            s = '1';
+                            if (!secondRowsIndex.includes(i)) {
+                                if (parentRowsIndex.includes(i) || !columnasDetalle)
+                                    $(element).find('c').each(function (j) {
+                                        position = columnasExportar[j];
+                                        $(this).removeAttr('s');
+                                        s = formatData(columnas[position]);
+                                        $(this).attr('s', s);           
+                                        
+                                    })
+                                else
+                                {
+                                    if(columnasDetalle) 
+                                        $(element).find('c').each(function (j) {
+                                            $(this).removeAttr('s');
+                                            s = formatData(columnasDetalle[j]);
+                                            $(this).attr('s', s); 
+                                        })
+                                }
+                                    
+                            }
+                            else {
+                                
+                                if (alignHeader === 'center')
+                                    s = '1'
+                                else if (alignHeader === 'start')
+                                    s = '2'
+                                else if (alignHeader === 'end')
+                                    s = '3'
+    
+                                $(element).find('c').each(function (k) {
+                                        $(this).attr('s', s);
+                                })
+                            }
+    
+                        })
+                    }
+                }
+            ];
+    }
+//colorLetra, negrita, tamanoLetra
+    let defaultValues = {
+        numFmtId: 0,
+        fontId: 1,
+        fillId: 0,
+        alineamiento: 'left',
+        fuente: {
+            tipo: 'Arial',
+            color: 'FF000000',
+            negrita: false,
+            tamanio: 8
+        }
+    } 
+
+    function crearEstilo(estilo){
+        let {numFmtId, fontId, fillId, alineamiento, formatoNumero, fuente, colorFondo } = estilo;
+
+        numFmtId = numFmtId ?? crearFormatoNumero(formatoNumero) ?? defaultValues.numFmtId;
+        fontId = fontId ?? crearFuente(fuente) ?? defaultValues.fontId;
+        fillId = fillId ?? crearFondo(colorFondo) ?? defaultValues.fillId;
+        alineamiento = alineamiento ?? defaultValues.alineamiento;
+
+        let plantilla = `<xf numFmtId="${numFmtId}" fontId="${fontId}" fillId="${fillId}" borderId="1" xfId="0" applyNumberFormat="1" applyFont="1" applyFill="1" applyBorder="1" applyAlignment="1" applyProtection="1"><alignment horizontal="${alineamiento}"/></xf>`;
+        $("cellXfs", hojaDeEstilos).append(plantilla);
+        return $("cellXfs", hojaDeEstilos).children().length - 1;
+
+    }
+
+    function crearFormatoNumero(formatoNumero){
+        if(!formatoNumero) return formatoNumero;
+         let plantilla = `<numFmt numFmtId="180" formatCode="${formatoNumero}"/>`;
+
+        $("numFmts", hojaDeEstilos).append(plantilla);
+        return $("numFmts", hojaDeEstilos).children().length - 1;
+    }
+
+    function crearFuente(fuente){
+        if(!fuente) return fuente;
+        let {tipo, color, negrita, tamanio} = fuente;
+        tipo = tipo ?? defaultValues.fuente.tipo;
+        color = color ?? defaultValues.fuente.color;
+        negrita = negrita ?? defaultValues.fuente.negrita;
+        tamanio = tamanio ?? defaultValues.fuente.tamanio;
+        let plantilla = `<font>
+                            ${negrita?'<b/>':''}
+                            <sz val="${tamanio}"/>
+                            <color rgb="${color.length==6?'FF'+color:color}"/>
+                            <name val="${tipo}"/>
+                        </font>`;
+
+        $("fonts", hojaDeEstilos).append(plantilla);
+        return $("fonts", hojaDeEstilos).children().length - 1;
+
+    }
+
+    function crearFondo(colorFondo, style){
+        if(!colorFondo) return colorFondo;
+        let plantilla = `<fill>
+                            <patternFill patternType="solid">
+                                <fgColor rgb="${colorFondo.length==6?'FF'+colorFondo:colorFondo}"/>
+                                <bgColor indexed="64"/>
+                            </patternFill>
+                        </fill>`;
+
+       $("fills", hojaDeEstilos).append(plantilla);
+       return $("fills", hojaDeEstilos).children().length - 1;
+   }
