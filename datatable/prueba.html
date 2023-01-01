@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+    
 <body>
 
 <div id="myP1">This is some text.</div>
@@ -54,8 +55,20 @@ $("#editable").keypress(function(evt) {
         }
     }
 });
-
+var listItem = document.getElementById( "bar" );
+alert( "Index: " + $( "li" ).index( listItem ) );
 </script>
+
+<ul>
+    <li id="foo">foo</li>
+    <li id="bar">bar</li>
+    <li id="baz">baz</li>
+  </ul>
+  <ul>
+    <li id="foo1">foo</li>
+    <li id="bar2">bar</li>
+    <li id="baz3">baz</li>
+  </ul>
 
 </body>
 </html>

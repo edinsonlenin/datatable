@@ -1,58 +1,95 @@
+$(document).ready(function () { 
+    $('ul').on('click', 'li', function () {
+      $(this).fadeOut(600); 
+    });
+    
+    $('#btn').click( function () { 
+      $('ul').append('<li>New Item</li>');
+    });
+   
+  }); 
+
+function add() {
+    if (isNaN($("#num1").val()) || isNaN($("#num2").val()))
+        $("#total").val('NaN');
+    else
+        $("#total").val(parseInt($("#num1").val()) + parseInt($("#num2").val()));
+
+};
+
 var personas = [
     {
-        id: "1", "nombre": "Edinson", "apellido": "Santa Cruz", "edad":"44", "sexo":"Hombre", "sueldo":"1234.55", "hobbies":"futbol, basket",
-        "Detalle":[
-            {idDetalle:1, id: "1","actividad":"trabajar","duracion":"8.35","esfuerzo":"regular"}, 
-            {idDetalle:2, id: "1","actividad":"jugar","duracion":"1.66","esfuerzo":"bajo"}, 
-            {idDetalle:3, id: "1","actividad":"limpiar","duracion":"0.556","esfuerzo":"bajo"}, 
+        id: "1", "nombre": "Edinson", "apellido": "Santa Cruz", "edad": "", "sexo": "Hombre", "sueldo": "123123123123123123123123123123", "hobbies": "futbol, basket",
+        "Detalle": [
+            { idDetalle: 1, id: "1", "actividad": "trabajar", "duracion": "8.35", "esfuerzo": "regular" },
+            { idDetalle: 2, id: "1", "actividad": "jugar", "duracion": "1.66", "esfuerzo": "bajo" },
+            { idDetalle: 3, id: "1", "actividad": "", "duracion": "0.556", "esfuerzo": "bajo" },
         ]
     },
     {
-        id: "2", "nombre": "Silvia", "apellido": "Alvaro", "edad":"44", "sexo":"Mujer", "sueldo":"2345.778", "hobbies":"ping pong, manualidades",
-        "Detalle":[
-            {idDetalle:4, id: "2","actividad":"arreglar","duracion":"8.35","esfuerzo":"regular"}, 
-            {idDetalle:5, id: "2","actividad":"orar","duracion":"1.66","esfuerzo":"bajo"}, 
+        id: "2", "nombre": "Silvia", "apellido": "Alvaro", "edad": "44", "sexo": "Mujer", "sueldo": "2345.778", "hobbies": "ping pong, manualidades",
+        "Detalle": [
+            { idDetalle: 4, id: "2", "actividad": "arreglar", "duracion": "8.35", "esfuerzo": "regular" },
+            { idDetalle: 5, id: "2", "actividad": "orar", "duracion": "1.66", "esfuerzo": "bajo" },
+        ]
+    },
+]; var personas1 = [
+    {
+        id: "1", "nombre": "Edinson", "apellido": "Santa Cruz", "edad": "", "sexo": "Hombre", "sueldo": "123123123123123123123123123123", "hobbies": "futbol, basket",
+        "DetallePersonas": [
+            { idDetalle: 1, id: "1", "actividad": "trabajar", "duracion": "8.35", "esfuerzo": "regular" },
+            { idDetalle: 2, id: "1", "actividad": "jugar", "duracion": "1.66", "esfuerzo": "bajo" },
+            { idDetalle: 3, id: "1", "actividad": "", "duracion": "0.556", "esfuerzo": "bajo" },
+        ]
+    },
+    {
+        id: "2", "nombre": "Silvia", "apellido": "Alvaro", "edad": "44", "sexo": "Mujer", "sueldo": "2345.778", "hobbies": "ping pong, manualidades",
+        "DetallePersonas": [
+            { idDetalle: 4, id: "2", "actividad": "arreglar", "duracion": "8.35", "esfuerzo": "regular" },
+            { idDetalle: 5, id: "2", "actividad": "orar", "duracion": "1.66", "esfuerzo": "bajo" },
         ]
     },
 ];
 
+
+
 var personasCompleto = [
     {
-        id: "1", "nombre": "Edinson", "apellido": "Santa Cruz", "edad":"44", "sexo":"Hombre", "sueldo":"1234.55", "hobbies":"futbol, basket",
-        "DetallePersonas":[
-            {idDetalle:1, id: "1","actividad":"trabajar","duracion":"8.35","esfuerzo":"regular"}, 
-            {idDetalle:2, id: "1","actividad":"jugar","duracion":"1.66","esfuerzo":"bajo"}, 
-            {idDetalle:3, id: "1","actividad":"limpiar","duracion":"0.556","esfuerzo":"bajo"}, 
+        id: "1", "nombre": "Edinson", "apellido": "Santa Cruz", "edad": "", "sexo": "Hombre", "sueldo": "123123123123123123123123123123", "hobbies": "futbol, basket",
+        "DetallePersonas": [
+            { idDetalle: 1, id: "1", "actividad": "trabajar", "duracion": "8.35", "esfuerzo": "regular" },
+            { idDetalle: 2, id: "1", "actividad": "jugar", "duracion": "1.66", "esfuerzo": "bajo" },
+            { idDetalle: 3, id: "1", "actividad": "", "duracion": "0.556", "esfuerzo": "bajo" },
         ]
     },
     {
-        id: "2", "nombre": "Silvia", "apellido": "Alvaro", "edad":"44", "sexo":"Mujer", "sueldo":"2345.778", "hobbies":"ping pong, manualidades",
-        "DetallePersonas":[
-            {idDetalle:4, id: "2","actividad":"arreglar","duracion":"8.35","esfuerzo":"regular"}, 
-            {idDetalle:5, id: "2","actividad":"orar","duracion":"1.66","esfuerzo":"bajo"}, 
+        id: "2", "nombre": "Silvia", "apellido": "Alvaro", "edad": "44", "sexo": "Mujer", "sueldo": "2345.778", "hobbies": "ping pong, manualidades",
+        "DetallePersonas": [
+            { idDetalle: 4, id: "2", "actividad": "arreglar", "duracion": "8.35", "esfuerzo": "regular" },
+            { idDetalle: 5, id: "2", "actividad": "orar", "duracion": "1.66", "esfuerzo": "bajo" },
         ]
     },
     {
-        id: "3", "nombre": "David", "apellido": "Santa Cruz", "edad":"8", "sexo":"Hombre", "sueldo":"200.36", "hobbies":"futbol, brawl stars",
-        "DetallePersonas":[
-            {idDetalle:4, id: "2","actividad":"estudiar","duracion":"6.5","esfuerzo":"regular"}, 
-            {idDetalle:5, id: "2","actividad":"jugar","duracion":"4.36","esfuerzo":"bajo"}, 
+        id: "3", "nombre": "David", "apellido": "Santa Cruz", "edad": "8", "sexo": "Hombre", "sueldo": "200.36", "hobbies": "futbol, brawl stars",
+        "DetallePersonas": [
+            { idDetalle: 4, id: "2", "actividad": "estudiar", "duracion": "6.5", "esfuerzo": "regular" },
+            { idDetalle: 5, id: "2", "actividad": "jugar", "duracion": "4.36", "esfuerzo": "bajo" },
         ]
     },
 ];
 
 var dsOrigen = [
-    {id: 1, "nombre": "Edinson", "apellido": "Santa Cruz", "hijos":"2"},
-    {id: 2, "nombre": "Miguel", "apellido": "Carbajal", "hijos":"1"},
-    {id:3, "nombre": "Jorge", "apellido": "Raraz", "hijos":"1"},
-    {id:4, "nombre": "Omar", "apellido": "Blas", "hijos":"1"},
-    {id:5, "nombre": "José", "apellido": "Zacarías", "hijos":"1"},
-    
+    { id: 1, "nombre": "Edinson", "apellido": "Santa Cruz", "hijos": "2" },
+    { id: 2, "nombre": "Miguel", "apellido": "Carbajal", "hijos": "1" },
+    { id: 3, "nombre": "Jorge", "apellido": "Raraz", "hijos": "1" },
+    { id: 4, "nombre": "Omar", "apellido": "Blas", "hijos": "1" },
+    { id: 5, "nombre": "José", "apellido": "Zacarías", "hijos": "1" },
+
 ];
 var dsDestino = [];
 var tablaorigenBase;
 var tabladestinoBase;
- 
+
 $(document).ready(function () {
     let columns = [
         { data: 'nombre' },
@@ -72,10 +109,10 @@ $(document).ready(function () {
         data: dsDestino,
         columns,
         moveTo: "origen",
-        deferRender:    true,
-        scrollY:        100,
+        deferRender: true,
+        scrollY: 100,
         // scrollCollapse: true,
-        scroller:       true,
+        scroller: true,
         paging: true
     })
     tabladestinoBase.init();
@@ -120,4 +157,4 @@ var dataSet = [
     ['Martena Mccray', 'Post-Sales support', 'Edinburgh', '8240', '2011/03/09', '$324,050'],
     ['Unity Butler', 'Marketing Designer', 'San Francisco', '5384', '2009/12/09', '$85,675'],
 ];
- 
+

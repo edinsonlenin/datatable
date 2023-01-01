@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title></title>
     <LINK href="../Utilitarios/seriva-stiles.css" type="text/css" rel="stylesheet">
     <SCRIPT src="../Utilitarios/JScript/jsUtil.js" type="text/javascript"></SCRIPT>
     <link href="../Utilitarios/cliente.css" type="text/css" rel="stylesheet" />
@@ -57,31 +57,53 @@
             /*let key1 = "nombre";
             let key2 = "apellido";
             let indice1 = 0;
-            let indice2 = 1;                            
+            let indice2 = 1;
             let filtro = `x[key1].trim() == e[indice1].trim() &&
                             x[key2].trim() == e[indice2].trim()`;*/
-            function format(element){
+            function format(element, fila, nivel){
+                console.log(JSON.stringify(fila));
                 let s = 4;
-                let s1 = crearEstilo({colorFondo: "FFFF00", fontId: 2, numFmtId: 180});
-                if (element.class == 'text-center')
-                    s = 94;
-                else if (element.class == 'text-start')
-                    s = 95;
-                else if (element.class == 'numero text-end')
-                    s = s1;
-                else if (element.class == 'text-end')
-                    s = 96
+                let s1 = tablaconhijas.createStyle({colorFondo: "FFFF00", alineamiento:'end'});
+                if(nivel===0){
+
+                    if(fila && fila.sexo=="Hombre")
+                        s = s1;
+                    else if (element.class == 'text-center')
+                        s = 94;
+                    else if (element.class == 'text-start')
+                        s = 95;
+                    else if (element.class == 'text-end')
+                        s = s1;
+                    else if (element.class == 'text-end')
+                        s = 96
+                }
+                else{
+                    if(fila.esfuerzo=="regular" && element.data=="duracion")
+                        s=s1;
+                    else
+                        s=4;
+                }
+
                 return s;
             }
             tablaColumnas = [
-                { class: 'amarillo dt-control', width: '33px', export:false },
+                { class: 'amarillo dt-control', width: '33px', export:false},
                 { data: "id", title: 'Id', class: "text-center", visible:false },
                 { data: "nombre", title: 'Nombre', class: "text-start" },
                 { data: "apellido", title: 'Apellido', class: "text-start" },
                 { data: "edad", title: 'Edad', class: "text-end" },
-                { data: "sexo", title: 'Sexo', class: "text-center", visible:false, export:true },
-                { data: "sueldo", title: 'Sueldo', class: "numero text-end" },
+                { data: "sexo", title: 'Sexo', class: "text-center",  export:true },
+                { data: "sueldo", title: 'Sueldo', class: "text-end", longNumber: true },
                 { data: "hobbies", title: 'Hobbbies', class: "text-start" },
+            ];
+
+            footerStyle = [
+                { class: "text-end" },
+                { class: "text-end" },
+                { class: "text-end" },  
+                { class: "text-center" },
+                { class: "text-end" },
+                { class: "text-end" },
             ];
 
             tablaColumnasDetalle = [
@@ -93,6 +115,7 @@
             let align_header = 'start';
 
             tablaconhijas = new BaseDataTable('#tabletablaColumnas', {
+                dom:"Bfrtip",
                 data: tablaData,
                 columns: tablaColumnas,
                 select: {
@@ -115,27 +138,35 @@
                     let options = {
                         columns: tablaColumnasDetalle,
                         rowId: "id",
-                        parentTable: tabletablaColumnas
                     };
                     let tableHtml = $($row.child()).find("table");
                     let nestedDataTable = new BaseDataTable(tableHtml, options);
                     nestedDataTable.init();
                     return nestedDataTable;
                 },
-                buttons: buttons(
-                    {
-                        tabla:"tabla", 
-                        filtro:["nombre","apellido"],
-                        formatData:format, 
-                    }
-                    )
+                paramButtons: {
+                        footer:true,
+                        // tabla:"tabla",
+                        columnasDetalle: tablaColumnasDetalle,
+                        // footerStyle:footerStyle,
+                       // llaves:["nombre","apellido"],
+                       formatData:format,
+                    },
+                // buttons: buttons(
+                //     {
+                //         tabla:"tabla",
+                //         filtro:["nombre","apellido"],
+                //         formatData:format,
+                //     }
+                //     )
             })
             tablaconhijas.init();
 
 
         });
         function exportarOrdenes() {
-            tablaconhijas.datatableObject.button().trigger();
+            tablaconhijas.export(0);
+            event.preventDefault();
         }
     </script>
 </head>
@@ -151,9 +182,35 @@
                 </tr>
             </table>
             <div class="container-fluid">
+                <table id="tabletablaColumnas" class="cell-border tabla-general stripe  dataTable" width="80%" height="60%">
+                    <thead>
+                        <tr>
+                            <th>columna1</th>
+                            <th>columna2</th>
+                            <th>columna3</th>
+                            <th>columna4</th>
+                            <th>columna5</th>
+                            <th>columna6</th>
+                            <th>columna7</th>
+                            <th>columna8</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>uno</th>
+                            <th>dos</th>
+                            <th>tres</th>
+                            <th>cuatro</th>
+                            <th>cinco</th>
+                            <th>seis</th>
+                            <th>siete</th>
+                            <th>ocho</th>
+                        </tr>
+                    </tfoot>
+                </table>
+                
 
-                <table id="tabletablaColumnas" class="cell-border tabla-general stripe  dataTable no-footer" width="80%"
-                    height="60%"></table>
+                <!-- <table id="tabletablaColumnas" class="cell-border tabla-general stripe  dataTable no-footer" width="80%" height="60%"></table> -->
             </div>
         </div>
     </form>

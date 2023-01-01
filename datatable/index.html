@@ -19,9 +19,38 @@
     <script src="https://cdn.datatables.net/scroller/2.0.7/js/dataTables.scroller.min.js"></script>
     <script src="BaseDataTable.js"></script>
     <script src="script.js"></script>
-
+<script>
+    $(document).ready(function () {
+    var listItem = $( "#baz3" );
+    var hijos = listItem.parent().children();
+alert( "Index: " +hijos.index( listItem ) );
+    })
+</script>
 </head>
 <body>
+    <ul>
+        <li id="foo">foo</li>
+        <li id="bar">bar</li>
+        <li id="baz">baz</li>
+      </ul>
+      <ul>
+        <li id="foo1">foo</li>
+        <li id="bar2">bar</li>
+        <li id="baz3">baz</li>
+      </ul>
+    <div id="contenedor">este es un texo</div>
+    <input id="btn" type="button" value="Add" /> 
+  <ul>
+      <li>Fresco Play</li> 
+      <li>Fresco Talk</li> 
+  </ul>
+    <input id="num1" placeholder="0">
+<input  id="num2" placeholder="0"></br>
+
+
+<button id="add" type="button" onclick="add()" >Add</button></br>
+<input id="total" placeholder="0" readonly>
+
     <input id="anio" type="integer" />
     <input type="text" id="texto" sytle="text-transform:uppercase"/>
     <div style="height: 500px;border: 1px solid red;">

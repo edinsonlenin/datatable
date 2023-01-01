@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <LINK href="../Utilitarios/seriva-stiles.css" type="text/css" rel="stylesheet">
+        <SCRIPT src="../Utilitarios/JScript/jsUtil.js" type="text/javascript"></SCRIPT>
+        <link href="../Utilitarios/cliente.css" type="text/css" rel="stylesheet" />
+        <link href="../src/css/custom.datatable.css" rel="stylesheet" />
+    
+        <script type="text/javascript" src="../Scripts/jquery-3.6.0.min.js"></script>
+        <script type="text/javascript" src="../src/assets/handlebars/js/handlebars.min.js"></script>
+        <script type="text/javascript" src="../src/assets/dataTable/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="../src/assets/dataTable/resize.datatable.js"></script>
+        <script type="text/javascript" src="../src/assets/dataTable/dataTables.select.min.js"></script>
+        <script type="text/javascript" src="../src/js/CustomDataTable.js"></script>
+        <script type="text/javascript" src="../src/js/styleUwg.js"></script>
+        <script type="text/javascript" src="../src/assets/dataTable/dataTables.buttons.min.js"></script>
+        <script type="text/javascript" src="../src/assets/dataTable/jszip.min.js"></script>
+        <script type="text/javascript" src="../src/assets/dataTable/buttons.html5.min.js"></script>
+    
+        <link href="../src/assets/Bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+        <script src="script.js"></script>
+
+    <script>
+        let tabla;
+        let tablaColumnas = [
+                { data: "id", title: 'Id', class: "text-center" },
+                { data: "nombre", title: 'Nombre', class: "text-start" },
+                { data: "apellido", title: 'Apellido', class: "text-start" },
+                { data: "edad", title: 'Edad', class: "text-end" },
+                { data: "sexo", title: 'Sexo', class: "text-center",  export:true },
+                { data: "sueldo", title: 'Sueldo', class: "numero text-end", longNumber: true },
+                { data: "hobbies", title: 'Hobbbies', class: "text-start" },
+            ];
+
+        $(document).ready(function () {
+            tabla = new BaseDataTable('#example', {
+                    dom: 'Brtip',
+                    columns: tablaColumnas,
+                    data: personas,
+                    paramButtons: {},
+                    // buttons: [
+                    //     { extend: 'copyHtml5', footer: true },
+                    //     { extend: 'excelHtml5', footer: true },
+                    //     { extend: 'csvHtml5', footer: true },
+                    //     { extend: 'pdfHtml5', footer: true }
+                    // ]
+            });
+            // $('#example').DataTable({
+            //     dom: 'Bfrtip',
+            //     buttons: [
+            //         { extend: 'copyHtml5', footer: true },
+            //         { extend: 'excelHtml5', footer: true },
+            //         { extend: 'csvHtml5', footer: true },
+            //         { extend: 'pdfHtml5', footer: true }
+            //     ]
+            // });
+            tabla.init();
+        });
+    </script>
+
+</head>
+
+<body>
+    <table id="example">
+        <thead>
+            <tr>
+                <th>columna2</th>
+                <th>columna3</th>
+                <th>columna3</th>
+                <th>columna3</th>
+                <th>columna3</th>
+                <th>columna3</th>
+                <th>columna3</th>
+            </tr>
+        </thead>
+        <!-- <tbody>
+            <tr>
+                <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius dolorum veniam nemo maxime.
+                    Voluptates, magni impedit consequuntur quam fugit quidem delectus hic optio temporibus repellat
+                    voluptatum voluptatem officiis quas molestias.</td>
+                <td>Possimus impedit, inventore laudantium nihil qui reiciendis, earum est facere eius perferendis
+                    repellendus, quasi sit quod eligendi numquam natus tempore pariatur corrupti porro blanditiis autem
+                    nesciunt libero saepe. Unde, provident.</td>
+                <td>Nostrum aspernatur illum rem sunt excepturi voluptatibus tempora, magnam a qui at cumque laudantium
+                    quae, molestiae officia. Nemo dolor excepturi a pariatur esse aperiam odio id? Commodi nostrum dolor
+                    autem.</td>
+            </tr>
+        </tbody> -->
+        <tfoot>
+            <tr>
+                <th>Total</th>
+                <th>1</th>
+                <th>1</th>
+                <th>1</th>
+                <th>1</th>
+                <th>1</th>
+                <th>1</th>
+            </tr>
+        </tfoot>
+    </table>
+</body>
+
+</html>

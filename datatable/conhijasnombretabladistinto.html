@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title></title>
     <LINK href="../Utilitarios/seriva-stiles.css" type="text/css" rel="stylesheet">
     <SCRIPT src="../Utilitarios/JScript/jsUtil.js" type="text/javascript"></SCRIPT>
     <link href="../Utilitarios/cliente.css" type="text/css" rel="stylesheet" />
@@ -46,7 +46,7 @@
     <script>
         
         //let tablaColumnasExportar;
-        let ordenesData = personas;
+        let ordenesData = personas1;
         let personasColumnas;
         let personasDetalle;
         let tabla;
@@ -113,30 +113,39 @@
                     let options = {
                         columns: personasDetalle,
                         rowId: "id",
-                        parentTable: tabletablaColumnas
+                        parentTable: tabla
                     };
                     let tableHtml = $($row.child()).find("table");
                     let nestedDataTable = new BaseDataTable(tableHtml, options);
                     nestedDataTable.init();
                     return nestedDataTable;
                 },
-                buttons: buttons(
-                    {
-                        filtro:["id"], 
+                paramButtons: {
+                        llaves:["id"], 
                         formatData:format, 
-                        columnas: personasColumnas,
                         columnasDetalle: personasDetalle, 
                         datos:personasCompleto,
-                        columnaDetalle:"DetallePersonas",
-                        alignHeader: "end"
-                    })
+                        propiedadDetalle:"DetallePersonas",
+                        nombreReporte:'Exportacion de personas'
+
+                    },
+                // buttons: buttons(
+                //     {
+                //         filtro:["id"], 
+                //         formatData:format, 
+                //         columnas: personasColumnas,
+                //         columnasDetalle: personasDetalle, 
+                //         datos:personasCompleto,
+                //         columnaDetalle:"DetallePersonas",
+                //         alignHeader: "end"
+                //     })
             })
             tabla.init();
 
 
         });
         function exportarOrdenes() {
-            tabla.datatableObject.button().trigger();
+            tabla.exportar();
         }
     </script>
 </head>
